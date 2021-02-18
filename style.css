@@ -69,3 +69,7 @@ body {
 #blueCheckbox {
   background-color: #0066cc;
 }
+
+.categoryBtn button {
+  margin: 5px 5px 5px 5px;
+}
