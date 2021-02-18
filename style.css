@@ -35,6 +35,13 @@ body {
   border-color: rgb(41, 41, 255);
 }
 
+.wallpaper {
+  max-width: 700px;
+  min-width: 700px;
+  max-height: 400px;
+  min-height: 350px;
+}
+
 .navigatebuttons {
   margin-top: 40px;
 }
