@@ -18,3 +18,31 @@ body {
 body {
   min-height: 100vh;
 }
+
+#redCheckbox {
+  background-color: #660000;
+}
+
+#orangeCheckbox {
+  background-color: #ff6600;
+}
+
+#yellowCheckbox {
+  background-color: #ffff00;
+}
+
+#purpleCheckbox {
+  background-color: #993399;
+}
+
+#greenCheckbox {
+  background-color: #336600;
+}
+
+#blackCheckbox {
+  background-color: #000000;
+}
+
+#blueCheckbox {
+  background-color: #0066cc;
+}
