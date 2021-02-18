@@ -19,6 +19,29 @@ body {
   min-height: 100vh;
 }
 
+.jumbo {
+  margin-top: 200px;
+  text-align: center;
+}
+
+.btn {
+  border-radius: 5%;
+  background-color: rgb(41, 41, 255);
+  color: white;
+}
+
+.btn:hover {
+  background-color: lightblue;
+  border-color: rgb(41, 41, 255);
+}
+
+.navigatebuttons {
+  margin-top: 40px;
+}
+
+.progressbar {
+  margin-top: 25px;
+}
 #redCheckbox {
   background-color: #660000;
 }
