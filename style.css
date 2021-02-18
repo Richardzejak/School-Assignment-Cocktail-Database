@@ -2,16 +2,16 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html,
+body {
   background: rgb(236, 254, 255);
   background: linear-gradient(
     90deg,
     rgba(236, 254, 255, 1) 0%,
     rgba(112, 230, 255, 1) 100%
   );
-}
-
-html,
-body {
   height: 100%;
 }
 
