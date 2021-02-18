@@ -37,44 +37,126 @@
         <div class="col">
           <div class="row">
             <div class="btn-group" data-toggle="buttons">
-              <label class="btn" id="redCheckbox">
-                <input type="checkbox" name="" id="" autocomplete="off" />
-              </label>
-              <label class="btn" id="orangeCheckbox">
-                <input type="checkbox" name="" id="" autocomplete="off" />
-              </label>
-              <label class="btn" id="yellowCheckbox">
-                <input type="checkbox" name="" id="" autocomplete="off" />
-              </label>
-              <label class="btn" id="blueCheckbox">
-                <input type="checkbox" name="" id="" autocomplete="off" />
-              </label>
-              <label class="btn" id="purpleCheckbox">
-                <input type="checkbox" name="" id="" autocomplete="off" />
-              </label>
-              <label class="btn" id="greenCheckbox">
-                <input type="checkbox" name="" id="" autocomplete="off" />
-              </label>
-              <label class="btn" id="blackCheckbox">
-                <input type="checkbox" name="" id="" autocomplete="off" />
-              </label>
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="theredCheckbox"
+                autocomplete="off"
+              />
+              <label
+                class="btn m-1"
+                for="theredCheckbox"
+                id="redCheckbox"
+              ></label>
+
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="theorangeCheckbox"
+                autocomplete="off"
+              />
+              <label
+                class="btn m-1"
+                for="theorangeCheckbox"
+                id="orangeCheckbox"
+              ></label>
+
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="theyellowCheckbox"
+                autocomplete="off"
+              />
+              <label
+                class="btn m-1"
+                for="theyellowCheckbox"
+                id="yellowCheckbox"
+              ></label>
+
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="theblueCheckbox"
+                autocomplete="off"
+              />
+              <label
+                class="btn m-1"
+                for="theblueCheckbox"
+                id="blueCheckbox"
+              ></label>
+
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="thepurpleCheckbox"
+                autocomplete="off"
+              />
+              <label
+                class="btn m-1"
+                for="thepurpleCheckbox"
+                id="purpleCheckbox"
+              ></label>
+
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="thegreenCheckbox"
+                autocomplete="off"
+              />
+              <label
+                class="btn m-1"
+                for="thegreenCheckbox"
+                id="greenCheckbox"
+              ></label>
+
+              <input
+                type="checkbox"
+                class="btn-check"
+                id="theblackCheckbox"
+                autocomplete="off"
+              />
+              <label
+                class="btn m-1"
+                for="theblackCheckbox"
+                id="blackCheckbox"
+              ></label>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm">
+
+          <!--back/forward buttons-->
+          <div class="row justify-content-center mt-3">
+            <div class="col-sm-auto">
               <button type="button" class="btn btn-primary">
                 <i class="bi bi-chevron-left"></i>
               </button>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-auto">
               <button type="button" class="btn btn-primary">
                 <i class="bi bi-stop-circle"></i>
               </button>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-auto">
               <button type="button" class="btn btn-primary">
                 <i class="bi bi-chevron-right"></i>
               </button>
+            </div>
+          </div>
+
+          <!--Progress bar-->
+          <div class="container mt-3">
+            <div class="row">
+              <div class="col">
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-bar-striped bg-dark"
+                    role="progressbar"
+                    style="width: 50%"
+                    aria-valuenow="50"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
