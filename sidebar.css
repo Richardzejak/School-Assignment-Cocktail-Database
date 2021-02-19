@@ -3,9 +3,12 @@ body {
 }
 
 #contentColumn {
-  padding-left: 185px;
+  padding-left: 150px;
 }
 
 #sidebar {
   min-width: 150px;
+  max-width: 150px;
+  padding: 0;
+  text-align: center;
 }
