@@ -12,3 +12,8 @@ body {
   padding: 0;
   text-align: center;
 }
+
+#sidebar-toggle {
+  position: fixed;
+  margin-top: 10px;
+}
