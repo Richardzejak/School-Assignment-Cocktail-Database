@@ -22,3 +22,9 @@ body {
 .card {
   margin: 15px;
 }
+
+.cardDiv {
+  padding: 15px;
+  box-sizing: border-box;
+  margin: 15px;
+}
