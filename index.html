@@ -33,9 +33,27 @@
       <div class="row">
         <div class="col-1 bg-danger fixed-top min-vh-100" id="sidebar">
           <h1>Navbar</h1>
-          <button class="btn btn-secondary btn-block">Hej</button>
-          <button class="btn btn-secondary btn-block">Hej</button>
-          <button class="btn btn-secondary btn-block">Hej</button>
+          <button type="button" class="btn btn-secondary btn-block" data-target="#searchbar" data-toggle="collapse">Search</button>
+          <input id="searchbar" type="search" class="collapse hide"></input>
+          <button type="button" class="btn btn-secondary btn-block" data-target="#categories-list" data-toggle="collapse">Categories</button>
+          <ul id="categories-list" class="collapse hide  list-unstyled">
+            <li>Sour Drinks</li>
+            <li>Strong Drinks</li>
+          </ul>
+          <button type="button" class="btn btn-secondary btn-block" data-target="#ingredients-list" data-toggle="collapse">Ingredients</button>
+          <ul id="ingredients-list" class="collapse hide  list-unstyled">
+            <li>Vodka</li>
+            <li>Lime</li>
+          </ul>
+          <button type="button" class="btn btn-secondary btn-block" data-target="#glass-list" data-toggle="collapse">Glass</button>
+          <ul id="glass-list" class="collapse hide  list-unstyled">
+            <li>Old-fashioned glass</li>
+            <li>Highball glass</li>
+          </ul>
+          <button type="button" class="btn btn-secondary btn-block">Random Drink</button>
+          <footer id="footer">
+            <a href="https://github.com/Richardzejak/School-Assignment-Cocktail-Database" class="text-dark text-decoration-none text-center">Github Link</a>
+          </footer>
         </div>
 
         <div class="col" id="contentColumn">
