@@ -18,3 +18,7 @@ body {
 body {
   min-height: 100vh;
 }
+
+.card {
+  margin: 15px;
+}
