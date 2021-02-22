@@ -17,3 +17,25 @@ body {
   position: fixed;
   margin-top: 10px;
 }
+
+#searchbar {
+  transition: hide 0s;
+  max-width: 100%;
+}
+
+#categories-list {
+  transition: hide 0s;
+}
+
+#ingredients-list {
+  transition: hide 0s;
+}
+
+#glass-list {
+  transition: hide 0s;
+}
+
+#footer {
+  position: absolute;
+  bottom: 10px;
+}
