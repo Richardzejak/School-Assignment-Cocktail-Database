@@ -11,12 +11,23 @@ body {
   max-width: 150px;
   padding: 0;
   text-align: center;
+  background-color: rgb(54, 31, 54);
+  color: white;
 }
 
 #sidebar-toggle {
   position: fixed;
   margin-top: 10px;
   z-index: 1;
+}
+
+button {
+  border-radius: 0 !important;
+  color: white !important;
+  background-color: black !important;
+}
+button:hover {
+  background-color: grey !important;
 }
 
 #searchbar {
