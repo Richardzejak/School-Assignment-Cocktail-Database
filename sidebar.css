@@ -37,21 +37,26 @@ button:hover {
   background-color: grey !important;
 }
 
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 #searchbar {
-  transition: hide 0s;
+  transition: ease-in 0.5;
   max-width: 100%;
 }
 
 #categories-list {
-  transition: hide 0s;
+  transition: ease-in 0.5;
 }
 
 #ingredients-list {
-  transition: hide 0s;
+  transition: ease-in 0.5;
 }
 
 #glass-list {
-  transition: hide 0s;
+  transition: ease-in 0.5;
 }
 
 #footer {
