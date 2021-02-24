@@ -13,11 +13,16 @@ for (let i = 0; i < 11; i++) {
   categories.push(document.getElementById("cat" + i));
 }
 
+//ingredients
+let ingredients = [];
+for (let i = 0; i < 2; i++) {
+  ingredients.push(document.getElementById("ing"+i));
+}
+
 //glass
 let glass = [];
 for (let i = 0; i < 2; i++) {
   glass.push(document.getElementById("gla"+i));
-  console.log(glass);
 }
 
 let url;
@@ -95,6 +100,21 @@ for (let i = 0; i < categories.length; i++) {
         break;
     }
     fetchfunction();
+  });
+}
+
+//ingredients event
+for (let i = 0; i < ingredients.length; i++) {
+  ingredients[i].addEventListener("click", function (event){
+    switch (event.target.id) {
+      case "ing0":
+        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka";
+        break;
+        case"ing1":
+        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Lime";
+        break;
+    }
+  fetchfunction();
   });
 }
 
