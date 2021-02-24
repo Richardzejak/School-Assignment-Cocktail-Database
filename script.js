@@ -128,7 +128,7 @@ function buildCard(drinkArray) {
     card.appendChild(image);
 
     let cBody = document.createElement("div");
-    cBody.className = "card-body bg-dark";
+    cBody.className = "card-body";
     card.appendChild(cBody);
 
     let title = document.createElement("h4");

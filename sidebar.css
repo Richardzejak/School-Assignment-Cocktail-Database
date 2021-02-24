@@ -11,8 +11,8 @@ body {
   max-width: 150px;
   padding: 0;
   text-align: center;
-  background-color: rgb(54, 31, 54);
-  color: white;
+  background-color: #1f1f1f;
+  color: rgb(109, 108, 108);
 }
 
 #sidebar-toggle {
@@ -24,7 +24,7 @@ body {
 button {
   border-radius: 0 !important;
   color: white !important;
-  background-color: black !important;
+  background-color: #585858 !important;
 }
 button:hover {
   background-color: grey !important;

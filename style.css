@@ -6,12 +6,8 @@
 
 html,
 body {
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(22, 30, 87, 1) 100%
-  );
+  background: #2f2f2f;
+
   height: 100%;
 }
 
@@ -27,4 +23,8 @@ body {
   padding: 15px;
   box-sizing: border-box;
   margin: 15px;
+}
+
+.card-body {
+  background-color: #ca5227 !important;
 }
