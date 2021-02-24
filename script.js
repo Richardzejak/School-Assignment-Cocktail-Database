@@ -13,6 +13,13 @@ for (let i = 0; i < 11; i++) {
   categories.push(document.getElementById("cat" + i));
 }
 
+//glass
+let glass = [];
+for (let i = 0; i < 2; i++) {
+  glass.push(document.getElementById("gla"+i));
+  console.log(glass);
+}
+
 let url;
 
 contentColumn.className = "box";
@@ -87,6 +94,21 @@ for (let i = 0; i < categories.length; i++) {
           "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Other/Unknown";
         break;
     }
+    fetchfunction();
+  });
+}
+
+//glass event
+for (let i = 0; i < glass.length; i++) {
+  glass[i].addEventListener("click", function (event) {
+    switch (event.target.id) {
+      case "gla0":
+      url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Old-fashioned glass";
+      break;
+      case "gla1":
+      url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail glass";
+      break;
+    };
     fetchfunction();
   });
 }
