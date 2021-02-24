@@ -24,6 +24,18 @@ async function changePicture() {
     });
 }
 
+/* Get data */
+async function getData() {
+  fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
+    .then((response) => response.json())
+    .then((data) => {
+      let name = data.drinks[0].strDrink;
+      console.log(name);
+    });
+}
+
+getData();
+
 //* Build cards */
 
 function buildGrid() {
@@ -34,7 +46,7 @@ function buildGrid() {
 
 function buildCard() {
   let mainColumn = document.createElement("div");
-  mainColumn.className = "col-md-4 mb-5";
+  mainColumn.className = "col-md-6 col-xl-4 mb-5";
   cardContainer.appendChild(mainColumn);
 
   let card = document.createElement("div");
