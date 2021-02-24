@@ -16,13 +16,13 @@ for (let i = 0; i < 11; i++) {
 //ingredients
 let ingredients = [];
 for (let i = 0; i < 2; i++) {
-  ingredients.push(document.getElementById("ing"+i));
+  ingredients.push(document.getElementById("ing" + i));
 }
 
 //glass
 let glass = [];
 for (let i = 0; i < 2; i++) {
-  glass.push(document.getElementById("gla"+i));
+  glass.push(document.getElementById("gla" + i));
 }
 
 let url;
@@ -43,9 +43,11 @@ sidebarToggle.addEventListener("click", function () {
 });
 
 //search event
-searchbar.addEventListener("keyup", function(event){
-  if(event.keyCode === 13){
-    url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+searchbar.value;
+searchbar.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    url =
+      "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +
+      searchbar.value;
     fetchfunction();
   }
 });
@@ -67,12 +69,10 @@ for (let i = 0; i < categories.length; i++) {
           "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Milk / Float / Shake";
         break;
       case "cat3":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocoa";
+        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocoa";
         break;
       case "cat4":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Shot";
+        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Shot";
         break;
       case "cat5":
         url =
@@ -87,8 +87,7 @@ for (let i = 0; i < categories.length; i++) {
           "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Punch / Party Drink";
         break;
       case "cat8":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Beer";
+        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Beer";
         break;
       case "cat9":
         url =
@@ -105,16 +104,16 @@ for (let i = 0; i < categories.length; i++) {
 
 //ingredients event
 for (let i = 0; i < ingredients.length; i++) {
-  ingredients[i].addEventListener("click", function (event){
+  ingredients[i].addEventListener("click", function (event) {
     switch (event.target.id) {
       case "ing0":
         url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka";
         break;
-        case"ing1":
+      case "ing1":
         url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Lime";
         break;
     }
-  fetchfunction();
+    fetchfunction();
   });
 }
 
@@ -123,48 +122,51 @@ for (let i = 0; i < glass.length; i++) {
   glass[i].addEventListener("click", function (event) {
     switch (event.target.id) {
       case "gla0":
-      url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Old-fashioned glass";
-      break;
+        url =
+          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Old-fashioned glass";
+        break;
       case "gla1":
-      url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail glass";
-      break;
-    };
+        url =
+          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail glass";
+        break;
+    }
     fetchfunction();
   });
 }
 
 //randombutton
-let randomButton = document.getElementById("randombutton").addEventListener("click", function()
-{
-  url="https://www.thecocktaildb.com/api/json/v1/1/random.php"
-  fetchfunction();
-});
+let randomButton = document
+  .getElementById("randombutton")
+  .addEventListener("click", function () {
+    url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+    fetchfunction();
+  });
 
 /* Get data */
-async function fetchfunction(){
+async function fetchfunction() {
   fetch(url)
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
 
-   //create an array of the data objects as well as a new array for the drinks with only the properties we want
-   let drinkArray = data.drinks;
-   let filteredDrinks = [];
+      //create an array of the data objects as well as a new array for the drinks with only the properties we want
+      let drinkArray = data.drinks;
+      let filteredDrinks = [];
 
-   //create objects with the properties we want and then push them into new array
-   drinkArray.forEach((object) => {
-      let drink = {
-       name: object.strDrink,
-       photo: object.strDrinkThumb,
-      };
-      filteredDrinks.push(drink);
-   });
-   console.log(filteredDrinks);
+      //create objects with the properties we want and then push them into new array
+      drinkArray.forEach((object) => {
+        let drink = {
+          name: object.strDrink,
+          photo: object.strDrinkThumb,
+        };
+        filteredDrinks.push(drink);
+      });
+      console.log(filteredDrinks);
 
-    //build the cards with the array of drink objects
+      //build the cards with the array of drink objects
 
-   buildCard(filteredDrinks);
-  });
+      buildCard(filteredDrinks);
+    });
 }
 
 //* Build cards by sending in an array of the fetch response with drinks*/
@@ -174,7 +176,7 @@ function buildCard(drinkArray) {
   drinkArray.forEach((drink) => {
     let mainColumn = document.createElement("div");
 
-    mainColumn.className = "col-md-6 col-xl-4 mb-5";
+    mainColumn.className = "col-md-6 col-xl-4 mt-3 mb-3";
     cardContainer.appendChild(mainColumn);
 
     let card = document.createElement("div");
