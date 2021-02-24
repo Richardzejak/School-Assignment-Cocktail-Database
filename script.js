@@ -91,6 +91,13 @@ for (let i = 0; i < categories.length; i++) {
   });
 }
 
+//randombutton
+let randomButton = document.getElementById("randombutton").addEventListener("click", function()
+{
+  url="https://www.thecocktaildb.com/api/json/v1/1/random.php"
+  fetchfunction();
+});
+
 /* Get data */
 async function fetchfunction(){
   fetch(url)
