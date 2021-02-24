@@ -23,14 +23,14 @@ body {
 
 button {
   border-radius: 0 !important;
-  color: #1b1b1b !important;
-  background-color: #ca5227 !important;
+  color: #14a76c !important;
+  background-color: #1f1f1f !important;
 }
 
 .submenuBtn {
-  color: #1b1b1b !important;
-  background-color: #ffe400 !important;
-  border: 0.5px solid black;
+  color: #14a76c !important;
+  background-color: #2a2a2a !important;
+  /* border: 0.5px solid black; */
 }
 
 button:hover {
@@ -72,4 +72,9 @@ button:hover {
 
 .box {
   animation: fadeIn 3s;
+}
+
+.fa-chevron-down {
+  color: #14a76c;
+  float: right;
 }
