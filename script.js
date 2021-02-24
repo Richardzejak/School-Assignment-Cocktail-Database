@@ -4,8 +4,19 @@ let contentColumn = document.getElementById("contentColumn");
 let sidebarHidden = false;
 const cardContainer = document.getElementById("cardContainer");
 
+//Categories
+
+let categories = [];
+
+for (let i = 0; i < 10; i++) {
+  categories.push(document.getElementById("cat"+i));
+}
+
+let categoryurl;
+
 contentColumn.className = "box";
 
+//sidebar toggle event
 sidebarToggle.addEventListener("click", function () {
   if (sidebarHidden) {
     sidebar.style.visibility = "visible";
@@ -17,6 +28,54 @@ sidebarToggle.addEventListener("click", function () {
     sidebarHidden = true;
   }
 });
+
+for (let i=0; i<categories.length; i++)
+{
+categories[i].addEventListener("click", function(event){
+  switch(event.target.id)
+  {
+    case "cat0":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink"
+    break;
+    case "cat1":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
+      break;
+    case "cat2":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Milk \/ Float \/ Shake"
+      break;
+    case "cat3":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocoa"
+      break;
+    case "cat4":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Shot"
+      break;
+    case "cat5":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Coffee \/ Tea"
+      break;
+    case "cat6":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Homemade_Liqueur"
+      break;    
+    case "cat7":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Punch \/ Party Drink"
+      break;    
+    case "cat8":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Beer"
+      break;
+    case "cat9":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Soft Drink \/ Soda"
+      break;
+    case "cat10":
+      categoryurl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Other\/Unknown"
+      break;
+  } 
+
+    fetch(categoryurl)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+});
+}
 
 /* Get data */
 async function getData() {
