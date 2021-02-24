@@ -27,3 +27,12 @@ body {
 .card-body {
   background-color: #ca5227 !important;
 }
+
+.fa-cocktail {
+  color: #14a76c;
+}
+
+h1 {
+  color: #14a76c;
+  margin-top: 5px;
+}
