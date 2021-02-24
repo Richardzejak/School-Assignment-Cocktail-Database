@@ -23,9 +23,16 @@ body {
 
 button {
   border-radius: 0 !important;
-  color: white !important;
-  background-color: #585858 !important;
+  color: #1b1b1b !important;
+  background-color: #ca5227 !important;
 }
+
+.submenuBtn {
+  color: #1b1b1b !important;
+  background-color: #ffe400 !important;
+  border: 0.5px solid black;
+}
+
 button:hover {
   background-color: grey !important;
 }
