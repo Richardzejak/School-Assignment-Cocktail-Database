@@ -4,6 +4,9 @@ let contentColumn = document.getElementById("contentColumn");
 let sidebarHidden = false;
 const cardContainer = document.getElementById("cardContainer");
 
+let saveButtons = [];
+let savedDrinks = [];
+
 //Searchbar
 let searchbar = document.getElementById("searchbar");
 
@@ -158,6 +161,7 @@ async function fetchfunction() {
         let drink = {
           name: object.strDrink,
           photo: object.strDrinkThumb,
+          id: object.idDrink,
         };
         filteredDrinks.push(drink);
       });
@@ -172,8 +176,7 @@ async function fetchfunction() {
 //* Build cards by sending in an array of the fetch response with drinks*/
 function buildCard(drinkArray) {
   cardContainer.innerHTML = "";
-
-  drinkArray.forEach((drink) => {
+  drinkArray.forEach((drink,i) => {
     let mainColumn = document.createElement("div");
 
     mainColumn.className = "col-md-6 col-xl-4 mt-3 mb-3";
@@ -203,5 +206,25 @@ function buildCard(drinkArray) {
     cardText.innerHTML = "some more text";
 
     cBody.appendChild(cardText);
+
+    let saveButton = document.createElement("button");
+    saveButton.className = "btn button btn-primary";
+    saveButton.type = "button";
+    saveButton.innerHTML = "+"
+    saveButton.id = drink.id;
+    saveButton.addEventListener("click", clickedSave);
+    cBody.appendChild(saveButton);
+    i++;
   });
+}
+
+function clickedSave(event)
+{
+  localStorage.setItem(savedDrinks,event.target.id);
+  
+  for (let i = 0; i < localStorage.length; i++) {
+    console.log(localStorage.getItem(localStorage.key(i)));
+  }
+
+  localStorage.length
 }
