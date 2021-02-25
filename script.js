@@ -45,10 +45,12 @@ sidebarToggle.addEventListener("click", function () {
 });
 
 //clear saved drinks
-document.getElementById("clearsave").addEventListener("click", function (event) {
-  localStorage.clear();
-  console.log("Cleared all saved drinks");
-});
+document
+  .getElementById("clearsave")
+  .addEventListener("click", function (event) {
+    localStorage.clear();
+    console.log("Cleared all saved drinks");
+  });
 
 //search event
 searchbar.addEventListener("keyup", function (event) {
@@ -181,24 +183,23 @@ async function fetchfunction() {
 /* Get data */
 async function fetchbyid(id) {
   let idUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  fetch(idUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
+  let res = await fetch(idUrl);
+  let data = await res.json();
 
-      let drink={
-        name: data.strDrink,
-        photo: data.strDrinkThumb,
-        instructions: data.strInstructions,
-        ingredient: [data.strIngredient1, data.strIngredient2, data.strIngredient3],
-      }
-    });
+  let drink = {
+    name: data.drinks[0].strDrink,
+    photo: data.drinks[0].strDrinkThumb,
+    instructions: data.drinks[0].strInstructions,
+    id: data.drinks[0].idDrink,
+  };
+
+  return drink;
 }
 
 //* Build cards by sending in an array of the fetch response with drinks*/
 function buildCard(drinkArray) {
   cardContainer.innerHTML = "";
-  drinkArray.forEach((drink,i) => {
+  drinkArray.forEach((drink, i) => {
     let mainColumn = document.createElement("div");
 
     mainColumn.className = "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
@@ -234,11 +235,10 @@ function buildCard(drinkArray) {
     abtBtn.setAttribute("id", drink.id);
     cBody.appendChild(abtBtn);
 
-
     let saveButton = document.createElement("button");
     saveButton.className = "btn button btn-primary";
     saveButton.type = "button";
-    saveButton.innerHTML = "+"
+    saveButton.innerHTML = "+";
     saveButton.id = drink.id;
     saveButton.addEventListener("click", clickedSave);
     cBody.appendChild(saveButton);
@@ -254,8 +254,7 @@ function buildCard(drinkArray) {
   });
 }
 
-function clickedSave(event)
-{
+function clickedSave(event) {
   fetchbyid(event.target.id);
 
   localStorage.setItem(`user_drinks${localStorage.length}`, event.target.id);
@@ -265,9 +264,10 @@ function clickedSave(event)
   }
 }
 
+async function createOverlay(id) {
+  let myDrink = await fetchbyid(id);
+  console.log(myDrink);
 
-
-function createOverlay(id) {
   let myNav = document.createElement("div");
   myNav.setAttribute("id", "myNav");
   myNav.className = "overlay";
