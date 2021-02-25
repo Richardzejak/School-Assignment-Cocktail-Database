@@ -173,13 +173,30 @@ async function fetchfunction() {
     });
 }
 
+/* Get data */
+async function fetchbyid(id) {
+  let idUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  fetch(idUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+
+      let drink={
+        name: data.strDrink,
+        photo: data.strDrinkThumb,
+        instructions: data.strInstructions,
+        ingredient: [data.strIngredient1, data.strIngredient2, data.strIngredient3],
+      }
+    });
+}
+
 //* Build cards by sending in an array of the fetch response with drinks*/
 function buildCard(drinkArray) {
   cardContainer.innerHTML = "";
   drinkArray.forEach((drink,i) => {
     let mainColumn = document.createElement("div");
 
-    mainColumn.className = "col-md-6 col-xl-4 mt-3 mb-3";
+    mainColumn.className = "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
     cardContainer.appendChild(mainColumn);
 
     let card = document.createElement("div");
@@ -204,8 +221,14 @@ function buildCard(drinkArray) {
     let cardText = document.createElement("p");
     cardText.className = "text-light";
     cardText.innerHTML = "some more text";
-
     cBody.appendChild(cardText);
+
+    let abtBtn = document.createElement("button");
+    abtBtn.className = "btn btn-primary aboutButton";
+    abtBtn.innerText = "About";
+    abtBtn.setAttribute("id", drink.id);
+    cBody.appendChild(abtBtn);
+
 
     let saveButton = document.createElement("button");
     saveButton.className = "btn button btn-primary";
@@ -216,6 +239,14 @@ function buildCard(drinkArray) {
     cBody.appendChild(saveButton);
     i++;
   });
+
+  $(document).ready(function () {
+    $(".aboutButton").click(function () {
+      console.log(this.id);
+
+      createOverlay(this.id);
+    });
+  });
 }
 
 function clickedSave(event)
@@ -223,8 +254,49 @@ function clickedSave(event)
   localStorage.setItem(savedDrinks,event.target.id);
   
   for (let i = 0; i < localStorage.length; i++) {
+    fetchbyid(event.target.id);
     console.log(localStorage.getItem(localStorage.key(i)));
   }
+}
 
-  localStorage.length
+
+
+function createOverlay(id) {
+  let myNav = document.createElement("div");
+  myNav.setAttribute("id", "myNav");
+  myNav.className = "overlay";
+  cardContainer.appendChild(myNav);
+
+  let overlayContent = document.createElement("div");
+  overlayContent.className = "overlay-content";
+
+  let link1 = document.createElement("a");
+  link1.href = "#";
+  link1.innerText = id;
+
+  overlayContent.appendChild(link1);
+
+  myNav.appendChild(overlayContent);
+
+  let closeBtn = document.createElement("a");
+  closeBtn.href = "javascript:void(0)";
+  closeBtn.className = "closebtn";
+  closeBtn.innerText = "X";
+  closeBtn.addEventListener("click", closeNav);
+
+  myNav.appendChild(closeBtn);
+
+  openNav();
+}
+
+/*OVERLAY*/
+
+/* Open when someone clicks on the span element */
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
 }

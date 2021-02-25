@@ -10,6 +10,7 @@
       integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="overlay.css">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="sidebar.css" />
     <link
@@ -29,7 +30,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
   </head>
-
+  
   <body class="">
     <div class="container-fluid">
       <div class="row">
@@ -49,7 +50,8 @@
             <li><button type="button" name="" id="cat7" class="btn btn-block submenuBtn">Punch/Party Drink</button></li>
             <li><button type="button" name="" id="cat8" class="btn btn-block submenuBtn">Beer</button></li>
             <li><button type="button" name="" id="cat9" class="btn btn-block submenuBtn">Soft Drink/Soda</button></li>
-            <li><button type="button" name="" id="cat10" class="btn btn-block submenuBtn">Other/Uknown</button></li>        
+            <li><button type="button" name="" id="cat10" class="btn btn-block submenuBtn">Other/Uknown</button></li> 
+                  
           </ul>
           <button type="button" class="btn btn-block" data-target="#ingredients-list" data-toggle="collapse">Ingredients<i class="fas fa-chevron-down"></i></button>
           <ul id="ingredients-list" class="collapse hide  list-unstyled">
@@ -70,12 +72,12 @@
           </footer>
         </div>
         </div>
-
         <div class="col" id="contentColumn">
           <div class="container-fluid ">
             <button class="btn btn-secondary" id="sidebar-toggle">
               <i class="bi bi-list"></i>
             </button>
+            
             <div class="row d-flex justify-content-center" id="cardContainer">
               <!--Card-->
              
@@ -87,7 +89,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>    
     <script src="script.js"></script>
   </body>
 </html>
