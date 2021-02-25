@@ -158,6 +158,7 @@ async function fetchfunction() {
         let drink = {
           name: object.strDrink,
           photo: object.strDrinkThumb,
+          id: object.idDrink,
         };
         filteredDrinks.push(drink);
       });
@@ -176,7 +177,7 @@ function buildCard(drinkArray) {
   drinkArray.forEach((drink) => {
     let mainColumn = document.createElement("div");
 
-    mainColumn.className = "col-md-6 col-xl-4 mt-3 mb-3";
+    mainColumn.className = "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
     cardContainer.appendChild(mainColumn);
 
     let card = document.createElement("div");
@@ -202,6 +203,18 @@ function buildCard(drinkArray) {
     cardText.className = "text-light";
     cardText.innerHTML = "some more text";
 
+    let abtBtn = document.createElement("button");
+    abtBtn.className = "btn btn-primary aboutButton";
+    abtBtn.innerText = "About";
+    abtBtn.setAttribute("id", drink.id);
+
     cBody.appendChild(cardText);
+    cBody.appendChild(abtBtn);
+  });
+
+  $(document).ready(function () {
+    $(".aboutButton").click(function () {
+      console.log(this.id);
+    });
   });
 }
