@@ -39,3 +39,8 @@ h1 {
   color: #14a76c;
   margin-top: 5px;
 }
+
+ul {
+  padding: 0;
+  margin: 0;
+}

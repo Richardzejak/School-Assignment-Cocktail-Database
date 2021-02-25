@@ -43,7 +43,7 @@ button:hover {
 }
 
 #searchbar {
-  transition: height 0.3s linear;
+  transition: ease-in 0.5;
   max-width: 100%;
 }
 

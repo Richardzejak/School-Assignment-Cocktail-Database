@@ -5,7 +5,6 @@ let sidebarHidden = false;
 const cardContainer = document.getElementById("cardContainer");
 
 let saveButtons = [];
-let savedDrinks = [];
 
 //Searchbar
 let searchbar = document.getElementById("searchbar");
@@ -43,6 +42,12 @@ sidebarToggle.addEventListener("click", function () {
     contentColumn.style.paddingLeft = 0;
     sidebarHidden = true;
   }
+});
+
+//clear saved drinks
+document.getElementById("clearsave").addEventListener("click", function (event) {
+  localStorage.clear();
+  console.log("Cleared all saved drinks");
 });
 
 //search event
@@ -251,11 +256,12 @@ function buildCard(drinkArray) {
 
 function clickedSave(event)
 {
-  localStorage.setItem(savedDrinks,event.target.id);
-  
+  fetchbyid(event.target.id);
+
+  localStorage.setItem(`user_drinks${localStorage.length}`, event.target.id);
+
   for (let i = 0; i < localStorage.length; i++) {
-    fetchbyid(event.target.id);
-    console.log(localStorage.getItem(localStorage.key(i)));
+    console.log(localStorage.getItem(`user_drinks${i}`));
   }
 }
 

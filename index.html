@@ -36,8 +36,10 @@
       <div class="row">
         <div class="col-1 fixed-top min-vh-100" id="sidebar">
           <h1>NB <i class="fas fa-cocktail my-auto mb-1"></i></h1>
-          <button type="button" class="btn btn-block" data-target="#searchbar" data-toggle="collapse">Search</button>
-          <input id="searchbar" type="search" class="collapse hide"></input>
+          <button type="button" class="btn btn-block" data-target="#searchbar-list" data-toggle="collapse">Search</button>
+          <ul id="searchbar-list" class="collapse hide list-unstyled">
+            <li><input id="searchbar" type="search"></input></li>
+          </ul>
           <button type="button" class="btn btn-block" data-target="#categories-list" data-toggle="collapse">Categories<i class="fas fa-chevron-down"></i></button>
           <ul id="categories-list" class="collapse hide  list-unstyled">
             <li><button type="button" name="" id="cat0" class="btn btn-block submenuBtn">Ordinary Drink</button></li>
@@ -50,8 +52,7 @@
             <li><button type="button" name="" id="cat7" class="btn btn-block submenuBtn">Punch/Party Drink</button></li>
             <li><button type="button" name="" id="cat8" class="btn btn-block submenuBtn">Beer</button></li>
             <li><button type="button" name="" id="cat9" class="btn btn-block submenuBtn">Soft Drink/Soda</button></li>
-            <li><button type="button" name="" id="cat10" class="btn btn-block submenuBtn">Other/Uknown</button></li> 
-                  
+            <li><button type="button" name="" id="cat10" class="btn btn-block submenuBtn">Other/Uknown</button></li>       
           </ul>
           <button type="button" class="btn btn-block" data-target="#ingredients-list" data-toggle="collapse">Ingredients<i class="fas fa-chevron-down"></i></button>
           <ul id="ingredients-list" class="collapse hide  list-unstyled">
@@ -68,6 +69,7 @@
 
           <div class="container-fluid d-flex justify-content-center">
           <footer id="footer">
+            <button type="button" id="clearsave" class="btn btn-block">Clear Saved Drinks</button>
             <a href="https://github.com/Richardzejak/School-Assignment-Cocktail-Database" class="text-white text-decoration-none text-center">Github Link</a>
           </footer>
         </div>
