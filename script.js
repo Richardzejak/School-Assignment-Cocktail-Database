@@ -215,6 +215,48 @@ function buildCard(drinkArray) {
   $(document).ready(function () {
     $(".aboutButton").click(function () {
       console.log(this.id);
+
+      createOverlay(this.id);
     });
   });
+}
+
+function createOverlay(id) {
+  let myNav = document.createElement("div");
+  myNav.setAttribute("id", "myNav");
+  myNav.className = "overlay";
+  cardContainer.appendChild(myNav);
+
+  let overlayContent = document.createElement("div");
+  overlayContent.className = "overlay-content";
+
+  let link1 = document.createElement("a");
+  link1.href = "#";
+  link1.innerText = id;
+
+  overlayContent.appendChild(link1);
+
+  myNav.appendChild(overlayContent);
+
+  let closeBtn = document.createElement("a");
+  closeBtn.href = "javascript:void(0)";
+  closeBtn.className = "closebtn";
+  closeBtn.innerText = "X";
+  closeBtn.addEventListener("click", closeNav);
+
+  myNav.appendChild(closeBtn);
+
+  openNav();
+}
+
+/*OVERLAY*/
+
+/* Open when someone clicks on the span element */
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
 }
