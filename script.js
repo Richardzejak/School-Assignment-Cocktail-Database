@@ -192,6 +192,7 @@ async function fetchbyid(id) {
   let idUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   let res = await fetch(idUrl);
   let data = await res.json();
+  console.log(data);
 
   let drink = {
     name: data.drinks[0].strDrink,
@@ -262,74 +263,81 @@ function clickedSave(event) {
     photo: event.target.data.photo,
   };
 
-  localStorage.setItem(`user_drinks${localStorage.length}`, JSON.stringify(storedValues));
+  localStorage.setItem(
+    `user_drinks${localStorage.length}`,
+    JSON.stringify(storedValues)
+  );
 }
 
 async function mypagefunction() {
   cardContainer.innerHTML = "";
   for (let i = 0; i < localStorage.length; i++) {
-    console.log(localStorage.getItem(`user_drinks${i}`))
-    }
-  for (let i = 0; i <= localStorage.length; i++) {
-    if (localStorage.getItem(`user_drinks${i}`))
-    {
-    let mainColumn = document.createElement("div");
-
-    mainColumn.className = "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
-    cardContainer.appendChild(mainColumn);
-
-    let card = document.createElement("div");
-    card.className = "card h-100 border border-dark";
-    mainColumn.appendChild(card);
-
-    let image = document.createElement("img");
-    image.setAttribute("id", "myIcon");
-    image.setAttribute(
-      "src",
-      JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo
-    );
-    image.className = "card-img-top bg-dark";
-    card.appendChild(image);
-
-    let cBody = document.createElement("div");
-    cBody.className = "card-body";
-    card.appendChild(cBody);
-
-    let title = document.createElement("h4");
-    title.className = "card-title text-light";
-    title.innerText = JSON.parse(localStorage.getItem(`user_drinks${i}`)).name;
-    cBody.appendChild(title);
-
-    let cardText = document.createElement("p");
-    cardText.className = "text-light";
-    cardText.innerHTML = "some more text";
-    cBody.appendChild(cardText);
-
-    let abtBtn = document.createElement("button");
-    abtBtn.className = "btn btn-primary aboutButton";
-    abtBtn.innerText = "About";
-    abtBtn.setAttribute(
-      "id",
-      JSON.parse(localStorage.getItem(`user_drinks${i}`)).id
-    );
-    cBody.appendChild(abtBtn);
-
-    let delBtn = document.createElement("button");
-    delBtn.className = "btn btn-primary deleteButton";
-    delBtn.innerText = "X";
-    delBtn.id = ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
-    delBtn.addEventListener("click", function(event){
-
-      for (let i = 0; i < localStorage.length; i++) {
-        if( JSON.parse(localStorage.getItem(`user_drinks${i}`)).id === event.target.id)
-        {
-          console.log("YES");
-          localStorage.removeItem(`user_drinks${i}`);
-        }
-      }      
-    });
-    cBody.appendChild(delBtn);
+    console.log(localStorage.getItem(`user_drinks${i}`));
   }
+  for (let i = 0; i <= localStorage.length; i++) {
+    if (localStorage.getItem(`user_drinks${i}`)) {
+      let mainColumn = document.createElement("div");
+
+      mainColumn.className =
+        "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
+      cardContainer.appendChild(mainColumn);
+
+      let card = document.createElement("div");
+      card.className = "card h-100 border border-dark";
+      mainColumn.appendChild(card);
+
+      let image = document.createElement("img");
+      image.setAttribute("id", "myIcon");
+      image.setAttribute(
+        "src",
+        JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo
+      );
+      image.className = "card-img-top bg-dark";
+      card.appendChild(image);
+
+      let cBody = document.createElement("div");
+      cBody.className = "card-body";
+      card.appendChild(cBody);
+
+      let title = document.createElement("h4");
+      title.className = "card-title text-light";
+      title.innerText = JSON.parse(
+        localStorage.getItem(`user_drinks${i}`)
+      ).name;
+      cBody.appendChild(title);
+
+      let cardText = document.createElement("p");
+      cardText.className = "text-light";
+      cardText.innerHTML = "some more text";
+      cBody.appendChild(cardText);
+
+      let abtBtn = document.createElement("button");
+      abtBtn.className = "btn btn-primary aboutButton";
+      abtBtn.innerText = "About";
+      abtBtn.setAttribute(
+        "id",
+        JSON.parse(localStorage.getItem(`user_drinks${i}`)).id
+      );
+      cBody.appendChild(abtBtn);
+
+      let delBtn = document.createElement("button");
+      delBtn.className = "btn btn-primary deleteButton";
+      delBtn.innerText = "X";
+      delBtn.id =
+        ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
+      delBtn.addEventListener("click", function (event) {
+        for (let i = 0; i < localStorage.length; i++) {
+          if (
+            JSON.parse(localStorage.getItem(`user_drinks${i}`)).id ===
+            event.target.id
+          ) {
+            console.log("YES");
+            localStorage.removeItem(`user_drinks${i}`);
+          }
+        }
+      });
+      cBody.appendChild(delBtn);
+    }
   }
   // $(document).ready(function () {
   //   $(".aboutButton").click(function () {
@@ -343,58 +351,23 @@ async function createOverlay(id) {
   console.log(myDrink);
   console.log(myDrink.name);
 
-  let myNav = document.createElement("div");
-  myNav.setAttribute("id", "myNav");
-  myNav.className = "overlay d-flex justify-content-center";
-  myNav.style.paddingLeft = "144px";
-  cardContainer.appendChild(myNav);
+  let photoColumn = document.getElementById("imageColumn");
+  photoColumn.innerHTML = "";
+  let drinkImage = document.createElement("img");
+  drinkImage.className = "img-fluid";
+  drinkImage.src = myDrink.photo;
+  photoColumn.appendChild(drinkImage);
 
-  let overlayContent = document.createElement("div");
-  overlayContent.className = "overlay-content";
-
-  let row = document.createElement("div");
-  row.className = "row";
-  row.setAttribute("id", "overlayControl");
-
-  /*Left column*/
-  let leftColumn = document.createElement("div");
-  leftColumn.className = "col-4 p-0";
-  let leftColumnImageContainer = document.createElement("div");
-  leftColumnImageContainer.className = "container-fluid p-0";
-  let leftImage = document.createElement("img");
-  leftImage.src = myDrink.photo;
-  leftImage.className = "img-fluid";
-
-  leftColumnImageContainer.appendChild(leftImage);
-  leftColumn.appendChild(leftColumnImageContainer);
-  row.appendChild(leftColumn);
-
-  /*Right Column*/
-  let rightColumn = document.createElement("div");
-  rightColumn.className = "col-8 bg-transparent text-light";
-  row.appendChild(rightColumn);
-
-  /*Appending the row to the overlay Content*/
-  overlayContent.appendChild(row);
-
-  myNav.appendChild(overlayContent);
-
-  let closeBtn = document.createElement("a");
-  closeBtn.href = "javascript:void(0)";
-  closeBtn.className = "closebtn";
-  closeBtn.innerText = "X";
-  closeBtn.addEventListener("click", closeNav);
-
-  myNav.appendChild(closeBtn);
-
-  openNav();
+  let instructionColumn = document.getElementById("instructions");
+  instructionColumn.innerText = myDrink.instructions;
 }
 
 /*OVERLAY*/
 
 /* Open when someone clicks on the span element */
-function openNav() {
+function openNav(event) {
   document.getElementById("myNav").style.width = "100%";
+  createOverlay(event.target.id);
 }
 
 /* Close when someone clicks on the "x" symbol inside the overlay */
