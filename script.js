@@ -254,18 +254,15 @@ function buildCard(drinkArray) {
 
 function clickedSave(event) {
   fetchbyid(event.target.id);
-
   localStorage.setItem(`user_drinks${localStorage.length}`, event.target.id);
-
-  for (let i = 0; i < localStorage.length; i++) {
-    console.log(localStorage.getItem(`user_drinks${i}`));
-  }
 }
 
 async function savedfunction(){
   cardContainer.innerHTML = "";
   for (let i = 0; i < localStorage.length; i++) {
-    let myDrink = await fetchbyid(localStorage.getItem(`user_drinks${i}`));
+    console.log(localStorage.getItem(`user_drinks${i}`));
+    let drink = await fetchbyid(localStorage.getItem(`user_drinks${i}`));
+    
       let mainColumn = document.createElement("div");
   
       mainColumn.className = "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
@@ -301,6 +298,11 @@ async function savedfunction(){
       abtBtn.setAttribute("id", drink.id);
       cBody.appendChild(abtBtn);
   }
+  $(document).ready(function () {
+    $(".aboutButton").click(function () {
+      createOverlay(this.id);
+    });
+  });
 }
 
 async function createOverlay(id) {
