@@ -194,6 +194,9 @@ async function fetchbyid(id) {
   let data = await res.json();
   console.log(data);
 
+  let ingredientsArray = collectIngredients(data);
+  console.log(ingredientsArray);
+
   let drink = {
     name: data.drinks[0].strDrink,
     photo: data.drinks[0].strDrinkThumb,
@@ -202,6 +205,38 @@ async function fetchbyid(id) {
   };
 
   return drink;
+}
+
+function collectIngredients(data) {
+  let newArray = [];
+  let creation = {
+    ingredient: "",
+    measurement: "",
+  };
+  let cArray = [];
+
+  for (const [key, value] of Object.entries(data.drinks[0])) {
+    if (key.includes("strIngredient") && value !== null) {
+      creation.ingredient = value;
+      newArray.push(value);
+
+      if (creation.ingredient != "") {
+        for (const [key, value] of Object.entries(data.drinks[0])) {
+          if (key.includes("strMeasure") && value !== null) {
+            creation.measurement = value;
+
+            if (creation.ingredient !== "" || creation.measurement !== "") {
+              cArray.push(creation);
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+  console.log(cArray);
+  // console.log(newArray);
+  return newArray;
 }
 
 //* Build cards by sending in an array of the fetch response with drinks*/
