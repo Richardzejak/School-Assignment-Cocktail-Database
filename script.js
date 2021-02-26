@@ -36,12 +36,17 @@ sidebarToggle.addEventListener("click", function () {
   if (sidebarHidden) {
     sidebar.style.visibility = "visible";
     contentColumn.style.paddingLeft = "144px";
-    document.getElementById("myNav").style.paddingLeft = "144px";
+    if (document.getElementById("myNav")) {
+      document.getElementById("myNav").style.paddingLeft = "144px";
+    }
     sidebarHidden = false;
   } else if (sidebarHidden == false) {
     sidebar.style.visibility = "hidden";
     contentColumn.style.paddingLeft = 0;
-    document.getElementById("myNav").style.paddingLeft = 0;
+    try {
+      document.getElementById("myNav").style.paddingLeft = 0;
+    } catch (error) {}
+
     sidebarHidden = true;
   }
 });
