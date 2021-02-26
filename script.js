@@ -160,7 +160,7 @@ let randomButton = document
 
 let myPage = document
   .getElementById("mypage")
-  .addEventListener("click", savedfunction);
+  .addEventListener("click", mypagefunction);
 
 /* Get data */
 async function fetchfunction() {
@@ -264,18 +264,19 @@ function clickedSave(event) {
 
   let storedValues = { 'name': event.target.data.name, 'id': event.target.data.id, 'photo': event.target.data.photo};
 
-  console.log(storedValues);
   localStorage.setItem(`user_drinks${localStorage.length}`, JSON.stringify(storedValues));
   
 //  localStorage.setItem(`user_drinks${localStorage.length}`, event.target.data.name, event.target.data.photo, event.target.data.id);
 }
 
-async function savedfunction() {
+async function mypagefunction() {
   cardContainer.innerHTML = "";
   for (let i = 0; i < localStorage.length; i++) {
     console.log(localStorage.getItem(`user_drinks${i}`))
     }
-  for (let i = 0; i < localStorage.length; i++) {
+  for (let i = 0; i <= localStorage.length; i++) {
+    if (localStorage.getItem(`user_drinks${i}`))
+    {
     let mainColumn = document.createElement("div");
 
     mainColumn.className = "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
@@ -310,6 +311,23 @@ async function savedfunction() {
     abtBtn.innerText = "About";
     abtBtn.setAttribute("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
     cBody.appendChild(abtBtn);
+
+    let delBtn = document.createElement("button");
+    delBtn.className = "btn btn-primary deleteButton";
+    delBtn.innerText = "X";
+    delBtn.id = ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
+    delBtn.addEventListener("click", function(event){
+
+      for (let i = 0; i < localStorage.length; i++) {
+        if( JSON.parse(localStorage.getItem(`user_drinks${i}`)).id === event.target.id)
+        {
+          console.log("YES");
+          localStorage.removeItem(`user_drinks${i}`);
+        }
+      }      
+    });
+    cBody.appendChild(delBtn);
+  }
   }
   $(document).ready(function () {
     $(".aboutButton").click(function () {
