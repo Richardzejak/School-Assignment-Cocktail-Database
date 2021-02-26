@@ -43,9 +43,9 @@ sidebarToggle.addEventListener("click", function () {
   } else if (sidebarHidden == false) {
     sidebar.style.visibility = "hidden";
     contentColumn.style.paddingLeft = 0;
-    try {
+    if (document.getElementById("myNav")) {
       document.getElementById("myNav").style.paddingLeft = 0;
-    } catch (error) {}
+    }
 
     sidebarHidden = true;
   }
@@ -330,16 +330,25 @@ async function createOverlay(id) {
   row.className = "row";
   row.setAttribute("id", "overlayControl");
 
+  /*Left column*/
   let leftColumn = document.createElement("div");
-  leftColumn.className = "col-4 bg-danger";
-  leftColumn.innerText = "HÄR ÄR EN COLUMN";
+  leftColumn.className = "col-4 p-0";
+  let leftColumnImageContainer = document.createElement("div");
+  leftColumnImageContainer.className = "container-fluid p-0";
+  let leftImage = document.createElement("img");
+  leftImage.src = myDrink.photo;
+  leftImage.className = "img-fluid";
+
+  leftColumnImageContainer.appendChild(leftImage);
+  leftColumn.appendChild(leftColumnImageContainer);
   row.appendChild(leftColumn);
 
+  /*Right Column*/
   let rightColumn = document.createElement("div");
-  rightColumn.className = "col-8 bg-success";
-  rightColumn.innerText = "HÄR ÄR EN COLUMN";
+  rightColumn.className = "col-8 bg-transparent text-light";
   row.appendChild(rightColumn);
 
+  /*Appending the row to the overlay Content*/
   overlayContent.appendChild(row);
 
   myNav.appendChild(overlayContent);
