@@ -240,6 +240,7 @@ function buildCard(drinkArray) {
     abtBtn.className = "btn btn-primary aboutButton";
     abtBtn.innerText = "About";
     abtBtn.setAttribute("id", drink.id);
+    abtBtn.addEventListener("click", openNav);
     cBody.appendChild(abtBtn);
 
     let saveButton = document.createElement("button");
@@ -252,21 +253,16 @@ function buildCard(drinkArray) {
     cBody.appendChild(saveButton);
     i++;
   });
-
-  $(document).ready(function () {
-    $(".aboutButton").click(function () {
-      createOverlay(this.id);
-    });
-  });
 }
 
 function clickedSave(event) {
-
-  let storedValues = { 'name': event.target.data.name, 'id': event.target.data.id, 'photo': event.target.data.photo};
+  let storedValues = {
+    name: event.target.data.name,
+    id: event.target.data.id,
+    photo: event.target.data.photo,
+  };
 
   localStorage.setItem(`user_drinks${localStorage.length}`, JSON.stringify(storedValues));
-  
-//  localStorage.setItem(`user_drinks${localStorage.length}`, event.target.data.name, event.target.data.photo, event.target.data.id);
 }
 
 async function mypagefunction() {
@@ -288,7 +284,10 @@ async function mypagefunction() {
 
     let image = document.createElement("img");
     image.setAttribute("id", "myIcon");
-    image.setAttribute("src", JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo);
+    image.setAttribute(
+      "src",
+      JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo
+    );
     image.className = "card-img-top bg-dark";
     card.appendChild(image);
 
@@ -309,7 +308,10 @@ async function mypagefunction() {
     let abtBtn = document.createElement("button");
     abtBtn.className = "btn btn-primary aboutButton";
     abtBtn.innerText = "About";
-    abtBtn.setAttribute("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
+    abtBtn.setAttribute(
+      "id",
+      JSON.parse(localStorage.getItem(`user_drinks${i}`)).id
+    );
     cBody.appendChild(abtBtn);
 
     let delBtn = document.createElement("button");
@@ -329,11 +331,11 @@ async function mypagefunction() {
     cBody.appendChild(delBtn);
   }
   }
-  $(document).ready(function () {
-    $(".aboutButton").click(function () {
-      createOverlay(this.id);
-    });
-  });
+  // $(document).ready(function () {
+  //   $(".aboutButton").click(function () {
+  //     createOverlay(this.id);
+  //   });
+  // });
 }
 
 async function createOverlay(id) {
