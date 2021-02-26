@@ -36,10 +36,12 @@ sidebarToggle.addEventListener("click", function () {
   if (sidebarHidden) {
     sidebar.style.visibility = "visible";
     contentColumn.style.paddingLeft = "144px";
+    document.getElementById("myNav").style.paddingLeft = "144px";
     sidebarHidden = false;
   } else if (sidebarHidden == false) {
     sidebar.style.visibility = "hidden";
     contentColumn.style.paddingLeft = 0;
+    document.getElementById("myNav").style.paddingLeft = 0;
     sidebarHidden = true;
   }
 });
@@ -49,7 +51,6 @@ document
   .getElementById("clearsave")
   .addEventListener("click", function (event) {
     localStorage.clear();
-    console.log("Cleared all saved drinks");
   });
 
 //search event
@@ -157,8 +158,6 @@ async function fetchfunction() {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-
       //create an array of the data objects as well as a new array for the drinks with only the properties we want
       let drinkArray = data.drinks;
       let filteredDrinks = [];
@@ -172,7 +171,6 @@ async function fetchfunction() {
         };
         filteredDrinks.push(drink);
       });
-      console.log(filteredDrinks);
 
       //build the cards with the array of drink objects
 
@@ -206,7 +204,7 @@ function buildCard(drinkArray) {
     cardContainer.appendChild(mainColumn);
 
     let card = document.createElement("div");
-    card.className = "card h-100 border border-dark";
+    card.className = "card h-100 border border-dark fadeIn";
     mainColumn.appendChild(card);
 
     let image = document.createElement("img");
@@ -247,8 +245,6 @@ function buildCard(drinkArray) {
 
   $(document).ready(function () {
     $(".aboutButton").click(function () {
-      console.log(this.id);
-
       createOverlay(this.id);
     });
   });
@@ -267,20 +263,32 @@ function clickedSave(event) {
 async function createOverlay(id) {
   let myDrink = await fetchbyid(id);
   console.log(myDrink);
+  console.log(myDrink.name);
 
   let myNav = document.createElement("div");
   myNav.setAttribute("id", "myNav");
-  myNav.className = "overlay";
+  myNav.className = "overlay d-flex justify-content-center";
+  myNav.style.paddingLeft = "144px";
   cardContainer.appendChild(myNav);
 
   let overlayContent = document.createElement("div");
   overlayContent.className = "overlay-content";
 
-  let link1 = document.createElement("a");
-  link1.href = "#";
-  link1.innerText = id;
+  let row = document.createElement("div");
+  row.className = "row";
+  row.setAttribute("id", "overlayControl");
 
-  overlayContent.appendChild(link1);
+  let leftColumn = document.createElement("div");
+  leftColumn.className = "col-4 bg-danger";
+  leftColumn.innerText = "HÄR ÄR EN COLUMN";
+  row.appendChild(leftColumn);
+
+  let rightColumn = document.createElement("div");
+  rightColumn.className = "col-8 bg-success";
+  rightColumn.innerText = "HÄR ÄR EN COLUMN";
+  row.appendChild(rightColumn);
+
+  overlayContent.appendChild(row);
 
   myNav.appendChild(overlayContent);
 
