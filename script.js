@@ -202,18 +202,45 @@ async function fetchbyid(id) {
     photo: data.drinks[0].strDrinkThumb,
     instructions: data.drinks[0].strInstructions,
     id: data.drinks[0].idDrink,
+    ingredients: ingredientsArray,
   };
 
   return drink;
 }
 
 function collectIngredients(data) {
-  let newArray = [];
+  let ingredientArray = [];
+  let measureArray = [];
   let creation = {
     ingredient: "",
     measurement: "",
   };
   let cArray = [];
+
+  for (const [key, value] of Object.entries(data.drinks[0])) {
+    if (key.includes("strIngredient") && value !== null) {
+      ingredientArray.push(value);
+    }
+  }
+
+  for (const [key, value] of Object.entries(data.drinks[0])) {
+    if (key.includes("strMeasure") && value !== null) {
+      measureArray.push(value);
+    }
+  }
+
+  console.log(ingredientArray);
+  console.log(measureArray);
+
+  var mergedArray = [];
+  for (var i = 0; i < ingredientArray.length && i < measureArray.length; i++)
+    mergedArray[i] = [measureArray[i], ingredientArray[i]];
+
+  console.log(mergedArray);
+
+  return mergedArray;
+
+  /*
 
   for (const [key, value] of Object.entries(data.drinks[0])) {
     if (key.includes("strIngredient") && value !== null) {
@@ -237,6 +264,8 @@ function collectIngredients(data) {
   console.log(cArray);
   // console.log(newArray);
   return newArray;
+
+  */
 }
 
 //* Build cards by sending in an array of the fetch response with drinks*/
@@ -386,6 +415,10 @@ async function createOverlay(id) {
   console.log(myDrink);
   console.log(myDrink.name);
 
+  let headline = document.getElementById("headLine");
+  headline.innerHTML = "";
+  headline.innerText = myDrink.name;
+
   let photoColumn = document.getElementById("imageColumn");
   photoColumn.innerHTML = "";
   let drinkImage = document.createElement("img");
@@ -394,7 +427,16 @@ async function createOverlay(id) {
   photoColumn.appendChild(drinkImage);
 
   let instructionColumn = document.getElementById("instructions");
+  instructionColumn.innerHTML = "";
   instructionColumn.innerText = myDrink.instructions;
+
+  let ingredientList = document.getElementById("iList");
+  ingredientList.innerHTML = "";
+  myDrink.ingredients.forEach((element) => {
+    let point = document.createElement("li");
+    point.innerText = element[1] + ": " + element[0];
+    ingredientList.appendChild(point);
+  });
 }
 
 /*OVERLAY*/
