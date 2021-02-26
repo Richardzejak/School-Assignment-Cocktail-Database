@@ -246,6 +246,7 @@ function buildCard(drinkArray) {
     saveButton.className = "btn button btn-primary";
     saveButton.type = "button";
     saveButton.innerHTML = "+";
+    saveButton.data = drink;
     saveButton.id = drink.id;
     saveButton.addEventListener("click", clickedSave);
     cBody.appendChild(saveButton);
@@ -260,16 +261,21 @@ function buildCard(drinkArray) {
 }
 
 function clickedSave(event) {
-  fetchbyid(event.target.id);
-  localStorage.setItem(`user_drinks${localStorage.length}`, event.target.id);
+
+  let storedValues = { 'name': event.target.data.name, 'id': event.target.data.id, 'photo': event.target.data.photo};
+
+  console.log(storedValues);
+  localStorage.setItem(`user_drinks${localStorage.length}`, JSON.stringify(storedValues));
+  
+//  localStorage.setItem(`user_drinks${localStorage.length}`, event.target.data.name, event.target.data.photo, event.target.data.id);
 }
 
 async function savedfunction() {
   cardContainer.innerHTML = "";
   for (let i = 0; i < localStorage.length; i++) {
-    console.log(localStorage.getItem(`user_drinks${i}`));
-    let drink = await fetchbyid(localStorage.getItem(`user_drinks${i}`));
-
+    console.log(localStorage.getItem(`user_drinks${i}`))
+    }
+  for (let i = 0; i < localStorage.length; i++) {
     let mainColumn = document.createElement("div");
 
     mainColumn.className = "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
@@ -281,7 +287,7 @@ async function savedfunction() {
 
     let image = document.createElement("img");
     image.setAttribute("id", "myIcon");
-    image.setAttribute("src", drink.photo);
+    image.setAttribute("src", JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo);
     image.className = "card-img-top bg-dark";
     card.appendChild(image);
 
@@ -291,7 +297,7 @@ async function savedfunction() {
 
     let title = document.createElement("h4");
     title.className = "card-title text-light";
-    title.innerText = drink.name.toUpperCase();
+    title.innerText = JSON.parse(localStorage.getItem(`user_drinks${i}`)).name;
     cBody.appendChild(title);
 
     let cardText = document.createElement("p");
@@ -302,7 +308,7 @@ async function savedfunction() {
     let abtBtn = document.createElement("button");
     abtBtn.className = "btn btn-primary aboutButton";
     abtBtn.innerText = "About";
-    abtBtn.setAttribute("id", drink.id);
+    abtBtn.setAttribute("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
     cBody.appendChild(abtBtn);
   }
   $(document).ready(function () {
