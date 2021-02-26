@@ -152,6 +152,8 @@ let randomButton = document
     fetchfunction();
   });
 
+let myPage = document.getElementById("mypage").addEventListener("click", savedfunction);
+
 /* Get data */
 async function fetchfunction() {
   fetch(url)
@@ -261,6 +263,47 @@ function clickedSave(event) {
 
   for (let i = 0; i < localStorage.length; i++) {
     console.log(localStorage.getItem(`user_drinks${i}`));
+  }
+}
+
+async function savedfunction(){
+  cardContainer.innerHTML = "";
+  for (let i = 0; i < localStorage.length; i++) {
+    let myDrink = await fetchbyid(localStorage.getItem(`user_drinks${i}`));
+      let mainColumn = document.createElement("div");
+  
+      mainColumn.className = "col-md-6 col-xl-3 col-lg-4 mt-3 mb-3 cardContainer";
+      cardContainer.appendChild(mainColumn);
+  
+      let card = document.createElement("div");
+      card.className = "card h-100 border border-dark";
+      mainColumn.appendChild(card);
+  
+      let image = document.createElement("img");
+      image.setAttribute("id", "myIcon");
+      image.setAttribute("src", drink.photo);
+      image.className = "card-img-top bg-dark";
+      card.appendChild(image);
+  
+      let cBody = document.createElement("div");
+      cBody.className = "card-body";
+      card.appendChild(cBody);
+  
+      let title = document.createElement("h4");
+      title.className = "card-title text-light";
+      title.innerText = drink.name.toUpperCase();
+      cBody.appendChild(title);
+  
+      let cardText = document.createElement("p");
+      cardText.className = "text-light";
+      cardText.innerHTML = "some more text";
+      cBody.appendChild(cardText);
+  
+      let abtBtn = document.createElement("button");
+      abtBtn.className = "btn btn-primary aboutButton";
+      abtBtn.innerText = "About";
+      abtBtn.setAttribute("id", drink.id);
+      cBody.appendChild(abtBtn);
   }
 }
 
