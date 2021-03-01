@@ -30,9 +30,11 @@ for (let i = 0; i < 2; i++) {
 let storeSaved = [];
 let existing = false;
 
-let url;
+let url =
+"https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
 
-contentColumn.className = "box";
+fetchfunction();
+
 
 //sidebar toggle event
 sidebarToggle.addEventListener("click", function () {
@@ -312,9 +314,9 @@ function buildCard(drinkArray) {
     cBody.appendChild(abtBtn);
 
     let saveButton = document.createElement("button");
-    saveButton.className = "btn button btn-primary";
+    saveButton.className = "btn button btn-primary bi bi-heart-fill";
     saveButton.type = "button";
-    saveButton.innerHTML = "+";
+    saveButton.innerHTML = "";
     saveButton.data = drink;
     saveButton.id = drink.id;
     saveButton.addEventListener("click", clickedSave);
