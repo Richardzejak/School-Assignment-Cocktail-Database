@@ -243,33 +243,6 @@ function collectIngredients(data) {
   console.log(mergedArray);
 
   return mergedArray;
-
-  /*
-
-  for (const [key, value] of Object.entries(data.drinks[0])) {
-    if (key.includes("strIngredient") && value !== null) {
-      creation.ingredient = value;
-      newArray.push(value);
-
-      if (creation.ingredient != "") {
-        for (const [key, value] of Object.entries(data.drinks[0])) {
-          if (key.includes("strMeasure") && value !== null) {
-            creation.measurement = value;
-
-            if (creation.ingredient !== "" || creation.measurement !== "") {
-              cArray.push(creation);
-              break;
-            }
-          }
-        }
-      }
-    }
-  }
-  console.log(cArray);
-  // console.log(newArray);
-  return newArray;
-
-  */
 }
 
 //* Build cards by sending in an array of the fetch response with drinks*/
@@ -292,23 +265,24 @@ function buildCard(drinkArray) {
     card.appendChild(image);
 
     let cBody = document.createElement("div");
-    cBody.className = "card-body";
+    cBody.className = "card-body text-center pb-0";
     card.appendChild(cBody);
 
     let title = document.createElement("h4");
-    title.className = "card-title text-light";
+    title.className = "card-title text-center";
     title.innerText = drink.name.toUpperCase();
     cBody.appendChild(title);
 
     let abtBtn = document.createElement("button");
-    abtBtn.className = "btn btn-primary aboutButton";
+    abtBtn.className = "btn btn-primary aboutButton mt-2 mr-3 rounded";
     abtBtn.innerText = "About";
     abtBtn.setAttribute("id", drink.id);
     abtBtn.addEventListener("click", openNav);
     cBody.appendChild(abtBtn);
 
     let saveButton = document.createElement("button");
-    saveButton.className = "btn button btn-primary bi bi-heart-fill saveButton";
+    saveButton.className =
+      "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-3 rounded";
     saveButton.type = "button";
     saveButton.innerHTML = "";
     saveButton.data = drink;
@@ -371,18 +345,19 @@ async function mypagefunction() {
       card.appendChild(image);
 
       let cBody = document.createElement("div");
-      cBody.className = "card-body";
+      cBody.className = "card-body text-center pb-0";
       card.appendChild(cBody);
 
       let title = document.createElement("h4");
-      title.className = "card-title text-light";
+      title.className = "card-title text-center";
       title.innerText = JSON.parse(
         localStorage.getItem(`user_drinks${i}`)
       ).name;
       cBody.appendChild(title);
 
       let abtBtn = document.createElement("button");
-      abtBtn.className = "btn btn-primary aboutButton";
+      abtBtn.className =
+        "btn btn-primary aboutButton text-center mt-2 mr-3 rounded";
       abtBtn.innerText = "About";
       abtBtn.addEventListener("click", openNav);
       abtBtn.setAttribute(
@@ -392,7 +367,8 @@ async function mypagefunction() {
       cBody.appendChild(abtBtn);
 
       let delBtn = document.createElement("button");
-      delBtn.className = "btn btn-primary deleteButton bi bi-trash-fill";
+      delBtn.className =
+        "btn btn-primary deleteButton bi bi-trash-fill text-center mt-2 ml-3 rounded";
       delBtn.innerText = "";
       delBtn.id =
         ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
@@ -436,6 +412,7 @@ async function createOverlay(id) {
   console.log(myDrink.name);
 
   let headline = document.getElementById("headLine");
+  headline.className = "iListHeadLine";
   headline.innerHTML = "";
   headline.innerText = myDrink.name;
 
