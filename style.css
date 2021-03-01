@@ -8,7 +8,7 @@
 
 ul {
   list-style: none;
-  color: #14a76c;
+  color: #ca5227;
 }
 
 html,
@@ -24,7 +24,15 @@ body {
 
 .card {
   margin: 15px;
-  border-radius: 25px !important;
+  border-radius: 20% !important;
+}
+
+#cardContainer {
+  border-radius: 20% !important;
+}
+
+.cardContainer {
+  border-radius: 20% !important;
 }
 
 .cardDiv {
@@ -42,8 +50,13 @@ body {
 }
 
 h1 {
-  color: #14a76c;
+  color: #ca5227;
   margin-top: 5px;
+}
+
+.card-title {
+  color: #1f1f1f !important;
+  font-weight: bold;
 }
 
 ul {
@@ -85,16 +98,17 @@ ul {
 
 hr {
   margin: 0 auto;
-  border: 2px solid #14a76c;
+  border: 2px solid #ca5227;
   border-radius: 12px;
   width: 75%;
 }
 
 #instructions {
-  color: #14a76c;
+  color: #ca5227;
 }
 
 .aboutButton,
-.saveButton {
+.saveButton,
+.deleteButton {
   border: 0;
 }
