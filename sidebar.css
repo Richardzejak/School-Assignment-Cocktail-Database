@@ -48,6 +48,7 @@ button:hover {
 #searchbar {
   transition: ease-in 0.5;
   max-width: 100%;
+  padding-left: 7px;
 }
 
 #categories-list {

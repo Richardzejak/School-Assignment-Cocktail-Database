@@ -403,8 +403,8 @@ async function mypagefunction() {
       cBody.appendChild(abtBtn);
 
       let delBtn = document.createElement("button");
-      delBtn.className = "btn btn-primary deleteButton";
-      delBtn.innerText = "X";
+      delBtn.className = "btn btn-primary deleteButton bi bi-trash-fill";
+      delBtn.innerText = "";
       delBtn.id =
         ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
         cBody.appendChild(delBtn);
