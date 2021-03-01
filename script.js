@@ -27,6 +27,8 @@ for (let i = 0; i < 2; i++) {
   glass.push(document.getElementById("gla" + i));
 }
 
+let storeSaved = [];
+
 let url;
 
 contentColumn.className = "box";
@@ -335,11 +337,8 @@ function clickedSave(event) {
 
 async function mypagefunction() {
   cardContainer.innerHTML = "";
-  for (let i = 0; i < localStorage.length; i++) {
-    console.log(localStorage.getItem(`user_drinks${i}`));
-  }
   for (let i = 0; i <= localStorage.length; i++) {
-    if (localStorage.getItem(`user_drinks${i}`)) {
+    if (localStorage.getItem(`user_drinks${i}`) !== null) {
       let mainColumn = document.createElement("div");
 
       mainColumn.className =
@@ -378,6 +377,7 @@ async function mypagefunction() {
       let abtBtn = document.createElement("button");
       abtBtn.className = "btn btn-primary aboutButton";
       abtBtn.innerText = "About";
+      abtBtn.addEventListener("click", openNav);
       abtBtn.setAttribute(
         "id",
         JSON.parse(localStorage.getItem(`user_drinks${i}`)).id
@@ -389,26 +389,37 @@ async function mypagefunction() {
       delBtn.innerText = "X";
       delBtn.id =
         ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
+        cBody.appendChild(delBtn);
       delBtn.addEventListener("click", function (event) {
+
+        let n = 0;
+        storeSaved = [];
+
         for (let i = 0; i < localStorage.length; i++) {
-          if (
-            JSON.parse(localStorage.getItem(`user_drinks${i}`)).id ===
-            event.target.id
-          ) {
-            console.log("YES");
-            localStorage.removeItem(`user_drinks${i}`);
+          if (JSON.parse(localStorage.getItem(`user_drinks${i}`)).id === event.target.id)
+          {
+          }
+          else{            
+            storeSaved[n] = {
+              name:JSON.parse(localStorage.getItem(`user_drinks${i}`)).name, 
+              id:JSON.parse(localStorage.getItem(`user_drinks${i}`)).id, 
+              photo:JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo
+            };
+            n++;
           }
         }
+
+        localStorage.clear();
+
+        for (let i = 0; i < storeSaved.length; i++) {
+          localStorage.setItem(`user_drinks${i}`, JSON.stringify(storeSaved[i]));
+        }
+        mypagefunction();
       });
-      cBody.appendChild(delBtn);
     }
   }
-  // $(document).ready(function () {
-  //   $(".aboutButton").click(function () {
-  //     createOverlay(this.id);
-  //   });
-  // });
 }
+
 
 async function createOverlay(id) {
   let myDrink = await fetchbyid(id);
