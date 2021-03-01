@@ -381,11 +381,6 @@ async function mypagefunction() {
       ).name;
       cBody.appendChild(title);
 
-      let cardText = document.createElement("p");
-      cardText.className = "text-light";
-      cardText.innerHTML = "some more text";
-      cBody.appendChild(cardText);
-
       let abtBtn = document.createElement("button");
       abtBtn.className = "btn btn-primary aboutButton";
       abtBtn.innerText = "About";
