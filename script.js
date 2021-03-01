@@ -31,10 +31,9 @@ let storeSaved = [];
 let existing = false;
 
 let url =
-"https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
+  "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
 
 fetchfunction();
-
 
 //sidebar toggle event
 sidebarToggle.addEventListener("click", function () {
@@ -301,11 +300,6 @@ function buildCard(drinkArray) {
     title.innerText = drink.name.toUpperCase();
     cBody.appendChild(title);
 
-    let cardText = document.createElement("p");
-    cardText.className = "text-light";
-    cardText.innerHTML = "some more text";
-    cBody.appendChild(cardText);
-
     let abtBtn = document.createElement("button");
     abtBtn.className = "btn btn-primary aboutButton";
     abtBtn.innerText = "About";
@@ -314,7 +308,7 @@ function buildCard(drinkArray) {
     cBody.appendChild(abtBtn);
 
     let saveButton = document.createElement("button");
-    saveButton.className = "btn button btn-primary bi bi-heart-fill";
+    saveButton.className = "btn button btn-primary bi bi-heart-fill saveButton";
     saveButton.type = "button";
     saveButton.innerHTML = "";
     saveButton.data = drink;
@@ -332,25 +326,25 @@ function clickedSave(event) {
     photo: event.target.data.photo,
   };
   existing = false;
-  for (let i = 0; i < localStorage.length; i++)
-  {
-    if (event.target.data.id === JSON.parse(localStorage.getItem(`user_drinks${i}`)).id )
-    {
+  for (let i = 0; i < localStorage.length; i++) {
+    if (
+      event.target.data.id ===
+      JSON.parse(localStorage.getItem(`user_drinks${i}`)).id
+    ) {
       existing += true;
-    }
-    else
-    {
+    } else {
       existing += false;
     }
   }
 
-    if (existing == false)
-    {
-    localStorage.setItem(`user_drinks${localStorage.length}`,JSON.stringify(storedValues));
-    }
-    else{
-      alert("Drink already saved");
-    }
+  if (existing == false) {
+    localStorage.setItem(
+      `user_drinks${localStorage.length}`,
+      JSON.stringify(storedValues)
+    );
+  } else {
+    alert("Drink already saved");
+  }
 }
 
 async function mypagefunction() {
@@ -407,21 +401,21 @@ async function mypagefunction() {
       delBtn.innerText = "X";
       delBtn.id =
         ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
-        cBody.appendChild(delBtn);
+      cBody.appendChild(delBtn);
       delBtn.addEventListener("click", function (event) {
-
         let n = 0;
         storeSaved = [];
 
         for (let i = 0; i < localStorage.length; i++) {
-          if (JSON.parse(localStorage.getItem(`user_drinks${i}`)).id === event.target.id)
-          {
-          }
-          else{            
+          if (
+            JSON.parse(localStorage.getItem(`user_drinks${i}`)).id ===
+            event.target.id
+          ) {
+          } else {
             storeSaved[n] = {
-              name:JSON.parse(localStorage.getItem(`user_drinks${i}`)).name, 
-              id:JSON.parse(localStorage.getItem(`user_drinks${i}`)).id, 
-              photo:JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo
+              name: JSON.parse(localStorage.getItem(`user_drinks${i}`)).name,
+              id: JSON.parse(localStorage.getItem(`user_drinks${i}`)).id,
+              photo: JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo,
             };
             n++;
           }
@@ -430,14 +424,16 @@ async function mypagefunction() {
         localStorage.clear();
 
         for (let i = 0; i < storeSaved.length; i++) {
-          localStorage.setItem(`user_drinks${i}`, JSON.stringify(storeSaved[i]));
+          localStorage.setItem(
+            `user_drinks${i}`,
+            JSON.stringify(storeSaved[i])
+          );
         }
         mypagefunction();
       });
     }
   }
 }
-
 
 async function createOverlay(id) {
   let myDrink = await fetchbyid(id);

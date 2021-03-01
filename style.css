@@ -24,6 +24,7 @@ body {
 
 .card {
   margin: 15px;
+  border-radius: 25px !important;
 }
 
 .cardDiv {
@@ -91,4 +92,9 @@ hr {
 
 #instructions {
   color: #14a76c;
+}
+
+.aboutButton,
+.saveButton {
+  border: 0;
 }
