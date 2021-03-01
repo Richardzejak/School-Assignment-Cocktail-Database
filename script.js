@@ -28,6 +28,7 @@ for (let i = 0; i < 2; i++) {
 }
 
 let storeSaved = [];
+let existing = false;
 
 let url;
 
@@ -328,11 +329,26 @@ function clickedSave(event) {
     id: event.target.data.id,
     photo: event.target.data.photo,
   };
+  existing = false;
+  for (let i = 0; i < localStorage.length; i++)
+  {
+    if (event.target.data.id === JSON.parse(localStorage.getItem(`user_drinks${i}`)).id )
+    {
+      existing += true;
+    }
+    else
+    {
+      existing += false;
+    }
+  }
 
-  localStorage.setItem(
-    `user_drinks${localStorage.length}`,
-    JSON.stringify(storedValues)
-  );
+    if (existing == false)
+    {
+    localStorage.setItem(`user_drinks${localStorage.length}`,JSON.stringify(storedValues));
+    }
+    else{
+      alert("Drink already saved");
+    }
 }
 
 async function mypagefunction() {
