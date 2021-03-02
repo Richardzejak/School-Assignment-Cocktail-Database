@@ -28,7 +28,7 @@
   padding: 8px;
   text-decoration: none;
   font-size: 36px;
-  color: #818181;
+  color: #14a76c;
   display: block; /* Display block instead of inline */
   transition: 0.3s; /* Transition effects on hover (color) */
 }
@@ -57,5 +57,13 @@
     font-size: 40px;
     top: 15px;
     right: 35px;
+  }
+
+  #headLine {
+    padding-top: 2em;
+  }
+
+  #subContent {
+    padding-bottom: 2em;
   }
 }

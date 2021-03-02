@@ -35,7 +35,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-1 fixed-top min-vh-100 sidebar" id="sidebar">
-          <a href="index.html" style="text-decoration: none;"><h1>NB <i class="fas fa-cocktail my-auto mb-1"></i></h1></a>
+          <a href="index.html" style="text-decoration: none;"><h1 id="topHeadline">NB <i class="fas fa-cocktail my-auto mb-1"></i></h1></a>
           <button type="button" class="btn btn-block" data-target="#searchbar-list" data-toggle="collapse">Search</button>
           <ul id="searchbar-list" class="collapse hide list-unstyled">
             <li><input id="searchbar" type="search"></input></li>
@@ -81,20 +81,21 @@
               <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
               <!-- Overlay content -->
-               <div class="overlay-content container-fluid">
-                 <div class="row d-flex justify-content-center mb-5"><div class="jumbotron jumbotron-fluid">
-                   <div class="container">
-                     <h1 class="display-3" id="headLine"></h1>
-                     <hr class="my-2">                   
-                   </div>
-                 </div></div>
-                 <div class="row d-flex justify-content-center">
-                   <div class="col-md-12 col-xl-4 col-lg-4" id="imageColumn"></div>
+               <div class="overlay-content container-fluid my-auto">
+                 <div class="row d-flex justify-content-center mb-5">
+                   <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                      <h1 class="display-3 pb-3" id="headLine"></h1>                                         
+                    </div>
+                  </div>
+                </div>
+                 <div class="row d-flex justify-content-center" id="subContent">
+                   <div class="col-md-12 col-xl-4 col-lg-4 pb-3" id="imageColumn"></div>
                    <div class="col-md-6 col-xl-4 col-lg-4" id="secondColumn"><h1>Instructions</h1><hr class="my-4"><p id="instructions"></p></div>
-                   <div class="col-md-6 col-xl-4 col-lg-4" id="thirdColumn"><h1>Ingredients</h1><hr class="my-4"><ul id="iList"></ul></div>
+                   <div class="col-md-6 col-xl-4 col-lg-4 pb-5" id="thirdColumn"><h1>Ingredients</h1><hr class="my-4"><ul id="iList"></ul></div>
                  </div>
                 
-              </div> 
+                </div> 
 
             </div>
 

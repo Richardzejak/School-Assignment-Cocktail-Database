@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&display=swap");
 
 * {
   box-sizing: border-box;
@@ -8,7 +9,7 @@
 
 ul {
   list-style: none;
-  color: #ca5227;
+  color: #14a76c;
 }
 
 html,
@@ -50,13 +51,18 @@ body {
 }
 
 h1 {
-  color: #ca5227;
+  color: #14a76c;
   margin-top: 5px;
+  font-family: "Titillium Web", sans-serif !important;
+}
+
+#topHeadline {
+  color: #14a76c !important;
 }
 
 .card-title {
+  font-family: "Titillium Web", sans-serif !important;
   color: #1f1f1f !important;
-  font-weight: bold;
 }
 
 ul {
@@ -98,13 +104,13 @@ ul {
 
 hr {
   margin: 0 auto;
-  border: 2px solid #ca5227;
+  border: 2px solid #14a76c;
   border-radius: 12px;
   width: 75%;
 }
 
 #instructions {
-  color: #ca5227;
+  color: #14a76c;
 }
 
 .aboutButton,

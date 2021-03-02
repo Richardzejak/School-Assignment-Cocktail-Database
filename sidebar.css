@@ -21,7 +21,7 @@ body {
   position: fixed;
   margin-top: 10px;
   z-index: 2;
-  color: #ca5227 !important;
+  color: #14a76c !important;
 }
 
 button {
@@ -109,14 +109,14 @@ button:hover {
 .glassList::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #14a76c;
+  background-color: #ca5227;
 }
 .glassList::-webkit-scrollbar {
   width: 10px;
   background-color: #14a76c;
 }
 .glassList::-webkit-scrollbar-thumb {
-  background-color: #ca5227;
+  background-color: #14a76c;
   border: 2 px solid #555555;
 }
 
