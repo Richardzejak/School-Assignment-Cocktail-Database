@@ -321,8 +321,6 @@ function clickedSave(event) {
       JSON.stringify(storedValues)
     );
     event.target.className = "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
-  } else {
-    alert("Drink already saved");
   }
 }
 
