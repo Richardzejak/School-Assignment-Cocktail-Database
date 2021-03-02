@@ -3,6 +3,7 @@ let sidebar = document.getElementById("sidebar");
 let contentColumn = document.getElementById("contentColumn");
 let sidebarHidden = false;
 const cardContainer = document.getElementById("cardContainer");
+const cList = document.getElementById("categories-list");
 
 let saveButtons = [];
 
@@ -27,13 +28,15 @@ for (let i = 0; i < 2; i++) {
   glass.push(document.getElementById("gla" + i));
 }
 
+createSideBar();
+
 let storeSaved = [];
 let existing = false;
 
 let url =
   "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
 
-fetchfunction();
+fetchfunction(url);
 
 //sidebar toggle event
 sidebarToggle.addEventListener("click", function () {
@@ -68,58 +71,44 @@ searchbar.addEventListener("keyup", function (event) {
     url =
       "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +
       searchbar.value;
-    fetchfunction();
+    fetchfunction(url);
   }
 });
 
-//categories event
-for (let i = 0; i < categories.length; i++) {
-  categories[i].addEventListener("click", function (event) {
-    switch (event.target.id) {
-      case "cat0":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
-        break;
-      case "cat1":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail";
-        break;
-      case "cat2":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Milk / Float / Shake";
-        break;
-      case "cat3":
-        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocoa";
-        break;
-      case "cat4":
-        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Shot";
-        break;
-      case "cat5":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Coffee / Tea";
-        break;
-      case "cat6":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Homemade_Liqueur";
-        break;
-      case "cat7":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Punch / Party Drink";
-        break;
-      case "cat8":
-        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Beer";
-        break;
-      case "cat9":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Soft Drink / Soda";
-        break;
-      case "cat10":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Other/Unknown";
-        break;
+async function createSideBar() {
+  let catUrl = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`;
+  let res = await fetch(catUrl);
+  let data = await res.json();
+  let cName = "";
+  let searchUrl = "";
+  console.log(data);
+
+  for (let i = 0; i < data.drinks.length; i++) {
+    if (data.drinks[i].strCategory) {
+      /*<li><button type="button" name="" id="cat0" class="btn btn-block submenuBtn">Ordinary Drinks</button></li>*/
+      let li = document.createElement("li");
+      let btn = document.createElement("button");
+      btn.className = "btn btn-block submenuBtn";
+      btn.innerText = data.drinks[i].strCategory;
+      btn.setAttribute("id", `cat${i}`);
+      btn.addEventListener("click", function () {
+        cName = btn.innerText;
+        searchUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cName}`;
+        console.log(searchUrl);
+        fetchfunction(searchUrl);
+      });
+
+      li.appendChild(btn);
+      cList.appendChild(li);
     }
-    fetchfunction();
-  });
+  }
+
+  let ingredientsUrl =
+    "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list";
+  res = await fetch(ingredientsUrl);
+  data = await res.json();
+
+  console.log(data);
 }
 
 //ingredients event
@@ -167,28 +156,27 @@ let myPage = document
   .addEventListener("click", mypagefunction);
 
 /* Get data */
-async function fetchfunction() {
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      //create an array of the data objects as well as a new array for the drinks with only the properties we want
-      let drinkArray = data.drinks;
-      let filteredDrinks = [];
+async function fetchfunction(searchUrl) {
+  let res = await fetch(searchUrl);
+  let data = await res.json();
 
-      //create objects with the properties we want and then push them into new array
-      drinkArray.forEach((object) => {
-        let drink = {
-          name: object.strDrink,
-          photo: object.strDrinkThumb,
-          id: object.idDrink,
-        };
-        filteredDrinks.push(drink);
-      });
+  //create an array of the data objects as well as a new array for the drinks with only the properties we want
+  let drinkArray = data.drinks;
+  let filteredDrinks = [];
 
-      //build the cards with the array of drink objects
+  //create objects with the properties we want and then push them into new array
+  drinkArray.forEach((object) => {
+    let drink = {
+      name: object.strDrink,
+      photo: object.strDrinkThumb,
+      id: object.idDrink,
+    };
+    filteredDrinks.push(drink);
+  });
 
-      buildCard(filteredDrinks);
-    });
+  //build the cards with the array of drink objects
+
+  buildCard(filteredDrinks);
 }
 
 /* Get data */
@@ -215,11 +203,6 @@ async function fetchbyid(id) {
 function collectIngredients(data) {
   let ingredientArray = [];
   let measureArray = [];
-  let creation = {
-    ingredient: "",
-    measurement: "",
-  };
-  let cArray = [];
 
   for (const [key, value] of Object.entries(data.drinks[0])) {
     if (key.includes("strIngredient") && value !== null) {
