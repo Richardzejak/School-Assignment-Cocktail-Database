@@ -4,6 +4,8 @@ let contentColumn = document.getElementById("contentColumn");
 let sidebarHidden = false;
 const cardContainer = document.getElementById("cardContainer");
 const cList = document.getElementById("categories-list");
+const iList = document.getElementById("ingredients-list");
+const gList = document.getElementById("glass-list");
 
 let saveButtons = [];
 
@@ -76,11 +78,12 @@ searchbar.addEventListener("keyup", function (event) {
 });
 
 async function createSideBar() {
+  /*Categories*/
   let catUrl = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`;
   let res = await fetch(catUrl);
   let data = await res.json();
   let cName = "";
-  let searchUrl = "";
+  let categoryUrl = "";
   console.log(data);
 
   for (let i = 0; i < data.drinks.length; i++) {
@@ -93,9 +96,9 @@ async function createSideBar() {
       btn.setAttribute("id", `cat${i}`);
       btn.addEventListener("click", function () {
         cName = btn.innerText;
-        searchUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cName}`;
-        console.log(searchUrl);
-        fetchfunction(searchUrl);
+        categoryUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cName}`;
+        console.log(categoryUrl);
+        fetchfunction(categoryUrl);
       });
 
       li.appendChild(btn);
@@ -103,44 +106,56 @@ async function createSideBar() {
     }
   }
 
-  let ingredientsUrl =
-    "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list";
-  res = await fetch(ingredientsUrl);
-  data = await res.json();
+  /*Ingredients*/
+  let ingredientsUrl = "";
+  let ingredientsArray = ["Vodka", "Lime", "Whiskey", "Sugar", "Rum", "Gin"];
+
+  for (let i = 0; i < ingredientsArray.length; i++) {
+    let li = document.createElement("li");
+    let btn = document.createElement("button");
+    btn.className = "btn btn-block submenuBtn";
+    btn.innerText = ingredientsArray[i];
+    btn.setAttribute("id", `ing${i}`);
+    btn.addEventListener("click", function () {
+      iName = btn.innerText;
+      ingredientsUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${iName}`;
+      console.log(ingredientsUrl);
+      fetchfunction(ingredientsUrl);
+    });
+
+    li.appendChild(btn);
+    iList.appendChild(li);
+  }
 
   console.log(data);
-}
 
-//ingredients event
-for (let i = 0; i < ingredients.length; i++) {
-  ingredients[i].addEventListener("click", function (event) {
-    switch (event.target.id) {
-      case "ing0":
-        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka";
-        break;
-      case "ing1":
-        url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Lime";
-        break;
-    }
-    fetchfunction();
-  });
-}
+  /*Glasses*/
+  let glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list`;
+  res = await fetch(glassUrl);
+  data = await res.json();
+  let gName = "";
+  glassUrl = "";
+  console.log(data);
 
-//glass event
-for (let i = 0; i < glass.length; i++) {
-  glass[i].addEventListener("click", function (event) {
-    switch (event.target.id) {
-      case "gla0":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Old-fashioned glass";
-        break;
-      case "gla1":
-        url =
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail glass";
-        break;
+  for (let i = 0; i < data.drinks.length; i++) {
+    if (data.drinks[i].strGlass) {
+      /*<li><button type="button" name="" id="cat0" class="btn btn-block submenuBtn">Ordinary Drinks</button></li>*/
+      let li = document.createElement("li");
+      let btn = document.createElement("button");
+      btn.className = "btn btn-block submenuBtn";
+      btn.innerText = data.drinks[i].strGlass;
+      btn.setAttribute("id", `gla${i}`);
+      btn.addEventListener("click", function () {
+        gName = btn.innerText;
+        glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${gName}`;
+        console.log(glassUrl);
+        fetchfunction(glassUrl);
+      });
+
+      li.appendChild(btn);
+      gList.appendChild(li);
     }
-    fetchfunction();
-  });
+  }
 }
 
 //randombutton
@@ -148,7 +163,7 @@ let randomButton = document
   .getElementById("randombutton")
   .addEventListener("click", function () {
     url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-    fetchfunction();
+    fetchfunction(url);
   });
 
 let myPage = document
