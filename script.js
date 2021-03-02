@@ -267,12 +267,11 @@ function buildCard(drinkArray) {
     card.appendChild(cBody);
 
     let title = document.createElement("h4");
-    title.className = "card-title text-center";
+    title.className = "card-title text-center mt-3";
     title.innerText = drink.name.toUpperCase();
-    cBody.appendChild(title);
 
     let abtBtn = document.createElement("button");
-    abtBtn.className = "btn btn-primary aboutButton mt-2 mr-3 rounded";
+    abtBtn.className = "btn btn-primary aboutButton mt-2 mr-2 rounded";
     abtBtn.innerText = "About";
     abtBtn.setAttribute("id", drink.id);
     abtBtn.addEventListener("click", openNav);
@@ -280,13 +279,15 @@ function buildCard(drinkArray) {
 
     let saveButton = document.createElement("button");
     saveButton.className =
-      "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-3 rounded";
+      "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
     saveButton.type = "button";
     saveButton.innerHTML = "";
     saveButton.data = drink;
     saveButton.id = drink.id;
     saveButton.addEventListener("click", clickedSave);
     cBody.appendChild(saveButton);
+    cBody.appendChild(title);
+
     i++;
   });
 }
