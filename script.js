@@ -279,11 +279,16 @@ function buildCard(drinkArray) {
 
     let saveButton = document.createElement("button");
     saveButton.className =
-      "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
+      "btn button btn-primary bi bi-heart saveButton mt-2 ml-2 rounded";
     saveButton.type = "button";
     saveButton.innerHTML = "";
     saveButton.data = drink;
     saveButton.id = drink.id;
+    for (let i = 0; i < localStorage.length; i++) {
+        if (JSON.parse(localStorage.getItem(`user_drinks${i}`)).id === drink.id){
+          saveButton.className = "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
+        }
+    }
     saveButton.addEventListener("click", clickedSave);
     cBody.appendChild(saveButton);
     cBody.appendChild(title);
@@ -315,6 +320,7 @@ function clickedSave(event) {
       `user_drinks${localStorage.length}`,
       JSON.stringify(storedValues)
     );
+    event.target.className = "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
   } else {
     alert("Drink already saved");
   }
