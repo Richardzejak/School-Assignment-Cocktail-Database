@@ -156,7 +156,7 @@ function buildCard(drinkArray) {
     title.innerText = drink.name.toUpperCase();
 
     let abtBtn = document.createElement("button");
-    abtBtn.className = "btn btn-primary aboutButton mt-2 mr-2 rounded";
+    abtBtn.className = "btn btn-primary aboutButton mt-2 mr-2 rounded mr-auto";
     abtBtn.innerText = "About";
     abtBtn.setAttribute("id", drink.id);
     abtBtn.addEventListener("click", openNav);
@@ -164,7 +164,7 @@ function buildCard(drinkArray) {
 
     let saveButton = document.createElement("button");
     saveButton.className =
-      "btn button btn-primary bi bi-heart saveButton mt-2 ml-2 rounded";
+      "btn button btn-primary bi bi-heart saveButton mt-2 ml-2 mr-auto rounded text-center";
     saveButton.type = "button";
     saveButton.innerHTML = "";
     saveButton.data = drink;
@@ -253,7 +253,7 @@ async function myPageFunction() {
 
       let abtBtn = document.createElement("button");
       abtBtn.className =
-        "btn btn-primary aboutButton text-center mt-2 mr-3 rounded";
+        "btn btn-primary aboutButton text-center mt-2 mr-auto rounded";
       abtBtn.innerText = "About";
       abtBtn.addEventListener("click", openNav);
       abtBtn.setAttribute(
@@ -264,7 +264,7 @@ async function myPageFunction() {
 
       let delBtn = document.createElement("button");
       delBtn.className =
-        "btn btn-primary deleteButton bi bi-trash-fill text-center mt-2 ml-3 rounded";
+        "btn btn-primary deleteButton bi bi-trash-fill text-center mt-2 ml-3 mr-auto rounded";
       delBtn.innerText = "";
       delBtn.id =
         ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);

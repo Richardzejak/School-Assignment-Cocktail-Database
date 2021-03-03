@@ -24,15 +24,6 @@ body {
 
 .card {
   margin: 15px;
-  border-radius: 20% !important;
-}
-
-#cardContainer {
-  border-radius: 20% !important;
-}
-
-.cardContainer {
-  border-radius: 20% !important;
 }
 
 .cardDiv {
