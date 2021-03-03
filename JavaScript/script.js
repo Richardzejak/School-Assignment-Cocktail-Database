@@ -85,49 +85,6 @@ async function fetchFunction(searchUrl) {
   }
 }
 
-/*Error handling for if there's no instructions-data*/
-function checkInstructions(data) {
-  if (data.drinks[0].strInstructions == "") {
-    return "No information found.";
-  } else {
-    return data.drinks[0].strInstructions;
-  }
-}
-
-/*Error handling for if there's no ingredients-data*/
-function checkIngredients(ingredientsArray) {
-  if (ingredientsArray.length == 0) {
-    return "No information found.";
-  } else {
-    return ingredientsArray;
-  }
-}
-
-/*extracting the correct key and value data from fetches to
-dynamically build the sidebar buttons*/
-function collectIngredients(data) {
-  let ingredientArray = [];
-  let measureArray = [];
-
-  for (const [key, value] of Object.entries(data.drinks[0])) {
-    if (key.includes("strIngredient") && value !== null) {
-      ingredientArray.push(value);
-    }
-  }
-
-  for (const [key, value] of Object.entries(data.drinks[0])) {
-    if (key.includes("strMeasure") && value !== null) {
-      measureArray.push(value);
-    }
-  }
-
-  var mergedArray = [];
-  for (var i = 0; i < ingredientArray.length && i < measureArray.length; i++)
-    mergedArray[i] = [measureArray[i], ingredientArray[i]];
-
-  return mergedArray;
-}
-
 //* Build cards by sending in an array of the fetch response with drinks*/
 function buildCard(drinkArray) {
   cardContainer.innerHTML = "";
