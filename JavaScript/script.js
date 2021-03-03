@@ -138,7 +138,7 @@ function buildCard(drinkArray) {
     cardContainer.appendChild(mainColumn);
 
     let card = document.createElement("div");
-    card.className = "card h-100 border border-dark fadeIn";
+    card.className = "card h-100 border border-0 fadeIn";
     mainColumn.appendChild(card);
 
     let image = document.createElement("img");
@@ -274,8 +274,7 @@ async function myPageFunction() {
   }
 
   // function for deleting drinks from localStorage
-function deleteFunction()
-{
+  function deleteFunction() {
     let n = 0;
     storeSaved = [];
 
@@ -298,10 +297,7 @@ function deleteFunction()
     localStorage.clear();
 
     for (let i = 0; i < storeSaved.length; i++) {
-      localStorage.setItem(
-        `user_drinks${i}`,
-        JSON.stringify(storeSaved[i])
-      );
+      localStorage.setItem(`user_drinks${i}`, JSON.stringify(storeSaved[i]));
     }
     // refreshes mypage to visualise that an item was deleted
     myPageFunction();
