@@ -4,6 +4,7 @@ body {
 
 #contentColumn {
   padding-left: 144px;
+  padding-right: 0px;
 }
 
 #sidebar {
