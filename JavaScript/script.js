@@ -264,7 +264,7 @@ async function myPageFunction() {
 
       let delBtn = document.createElement("button");
       delBtn.className =
-        "btn btn-primary deleteButton bi bi-trash-fill text-center mt-2 ml-3 mr-auto rounded";
+        "btn btn-primary deleteButton bi bi-trash-fill text-center mt-2  mr-auto rounded";
       delBtn.innerText = "";
       delBtn.id =
         ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
