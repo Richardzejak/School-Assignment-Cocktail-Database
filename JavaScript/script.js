@@ -1,55 +1,30 @@
 "use strict";
 
-let sidebarToggle = document.getElementById("sidebar-toggle");
-let sidebar = document.getElementById("sidebar");
 let contentColumn = document.getElementById("contentColumn");
-let sidebarHidden = false;
 const cardContainer = document.getElementById("cardContainer");
 const cList = document.getElementById("categories-list");
 const iList = document.getElementById("ingredients-list");
 const gList = document.getElementById("glass-list");
+const searchbar = document.getElementById("searchbar");
 
-let saveButtons = [];
-
-//Searchbar
-let searchbar = document.getElementById("searchbar");
-
-createSideBar();
-
+//array that keeps track of all saved localstorage-items before clearing
+//and then saves them again
 let storeSaved = [];
+
+//keeps track if drink is already saved
 let existing = false;
 
+//intial page showing
 let url =
   "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
 
+createSideBar();
 fetchFunction(url);
 
-//sidebar toggle event
-sidebarToggle.addEventListener("click", function () {
-  if (sidebarHidden) {
-    sidebar.style.visibility = "visible";
-    contentColumn.style.paddingLeft = "144px";
-    if (document.getElementById("myNav")) {
-      document.getElementById("myNav").style.paddingLeft = "144px";
-    }
-    sidebarHidden = false;
-  } else if (sidebarHidden == false) {
-    sidebar.style.visibility = "hidden";
-    contentColumn.style.paddingLeft = 0;
-    if (document.getElementById("myNav")) {
-      document.getElementById("myNav").style.paddingLeft = 0;
-    }
-
-    sidebarHidden = true;
-  }
-});
-
 //clear saved drinks
-document
-  .getElementById("clearsave")
-  .addEventListener("click", function (event) {
-    localStorage.clear();
-  });
+document.getElementById("clearsave").addEventListener("click", function () {
+  localStorage.clear();
+});
 
 //search event
 searchbar.addEventListener("keyup", function (event) {
@@ -61,87 +36,6 @@ searchbar.addEventListener("keyup", function (event) {
   }
 });
 
-async function createSideBar() {
-  /*Categories*/
-  let catUrl = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`;
-  let res = await fetch(catUrl);
-  let data = await res.json();
-  let cName = "";
-  let categoryUrl = "";
-  console.log(data);
-
-  for (let i = 0; i < data.drinks.length; i++) {
-    if (data.drinks[i].strCategory) {
-      /*<li><button type="button" name="" id="cat0" class="btn btn-block submenuBtn">Ordinary Drinks</button></li>*/
-      let li = document.createElement("li");
-      let btn = document.createElement("button");
-      btn.className = "btn btn-block submenuBtn";
-      btn.innerText = data.drinks[i].strCategory;
-      btn.setAttribute("id", `cat${i}`);
-      btn.addEventListener("click", function () {
-        cName = btn.innerText;
-        categoryUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cName}`;
-        console.log(categoryUrl);
-        fetchFunction(categoryUrl);
-      });
-
-      li.appendChild(btn);
-      cList.appendChild(li);
-    }
-  }
-
-  /*Ingredients*/
-  let ingredientsUrl = "";
-  let ingredientsArray = ["Vodka", "Lime", "Whiskey", "Sugar", "Rum", "Gin"];
-
-  for (let i = 0; i < ingredientsArray.length; i++) {
-    let li = document.createElement("li");
-    let btn = document.createElement("button");
-    btn.className = "btn btn-block submenuBtn";
-    btn.innerText = ingredientsArray[i];
-    btn.setAttribute("id", `ing${i}`);
-    btn.addEventListener("click", function () {
-      let iName = btn.innerText;
-      ingredientsUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${iName}`;
-      console.log(ingredientsUrl);
-      fetchFunction(ingredientsUrl);
-    });
-
-    li.appendChild(btn);
-    iList.appendChild(li);
-  }
-
-  console.log(data);
-
-  /*Glasses*/
-  let glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list`;
-  res = await fetch(glassUrl);
-  data = await res.json();
-  let gName = "";
-  glassUrl = "";
-  console.log(data);
-
-  for (let i = 0; i < data.drinks.length; i++) {
-    if (data.drinks[i].strGlass) {
-      /*<li><button type="button" name="" id="cat0" class="btn btn-block submenuBtn">Ordinary Drinks</button></li>*/
-      let li = document.createElement("li");
-      let btn = document.createElement("button");
-      btn.className = "btn btn-block submenuBtn";
-      btn.innerText = data.drinks[i].strGlass;
-      btn.setAttribute("id", `gla${i}`);
-      btn.addEventListener("click", function () {
-        gName = btn.innerText;
-        glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${gName}`;
-        console.log(glassUrl);
-        fetchFunction(glassUrl);
-      });
-
-      li.appendChild(btn);
-      gList.appendChild(li);
-    }
-  }
-}
-
 //randombutton
 let randomButton = document
   .getElementById("randombutton")
@@ -150,11 +44,12 @@ let randomButton = document
     fetchFunction(url);
   });
 
+//Button for going to mypage
 let myPage = document
   .getElementById("mypage")
-  .addEventListener("click", mypagefunction);
+  .addEventListener("click", myPageFunction);
 
-/* Get data */
+/* function for fetching data */
 async function fetchFunction(searchUrl) {
   let res = await fetch(searchUrl);
   console.log(res.status);
@@ -177,7 +72,7 @@ async function fetchFunction(searchUrl) {
     });
 
     //build the cards with the array of drink objects
-
+    //error handling for if there's no matching result from search
     buildCard(filteredDrinks);
   } else {
     searchbar.value = "No result...";
@@ -187,31 +82,7 @@ async function fetchFunction(searchUrl) {
   }
 }
 
-/* Get data */
-async function fetchbyid(id) {
-  let idUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  try {
-    let res = await fetch(idUrl);
-    let data = await res.json();
-    console.log(data);
-
-    let ingredientsArray = collectIngredients(data);
-    console.log(ingredientsArray);
-
-    let drink = {
-      name: data.drinks[0].strDrink,
-      photo: data.drinks[0].strDrinkThumb,
-      instructions: checkInstructions(data),
-      id: data.drinks[0].idDrink,
-      ingredients: checkIngredients(ingredientsArray),
-    };
-
-    return drink;
-  } catch (error) {
-    alert("Network error.");
-  }
-}
-
+/*Error handling for if there's no instructions-data*/
 function checkInstructions(data) {
   if (data.drinks[0].strInstructions == "") {
     return "No information found.";
@@ -220,6 +91,7 @@ function checkInstructions(data) {
   }
 }
 
+/*Error handling for if there's no ingredients-data*/
 function checkIngredients(ingredientsArray) {
   if (ingredientsArray.length == 0) {
     return "No information found.";
@@ -228,6 +100,8 @@ function checkIngredients(ingredientsArray) {
   }
 }
 
+/*extracting the correct key and value data from fetches to
+dynamically build the sidebar buttons*/
 function collectIngredients(data) {
   let ingredientArray = [];
   let measureArray = [];
@@ -306,6 +180,7 @@ function buildCard(drinkArray) {
   });
 }
 
+/* Function for saving a drink to mypage*/
 function clickedSave(event) {
   let storedValues = {
     name: event.target.data.name,
@@ -334,7 +209,8 @@ function clickedSave(event) {
   }
 }
 
-async function mypagefunction() {
+/*building my-page*/
+async function myPageFunction() {
   cardContainer.innerHTML = "";
   for (let i = 0; i <= localStorage.length; i++) {
     if (localStorage.getItem(`user_drinks${i}`) !== null) {
@@ -413,58 +289,8 @@ async function mypagefunction() {
             JSON.stringify(storeSaved[i])
           );
         }
-        mypagefunction();
+        myPageFunction();
       });
     }
   }
 }
-
-async function createOverlay(id) {
-  let myDrink = await fetchbyid(id);
-  console.log(myDrink);
-  console.log(myDrink.name);
-
-  let headline = document.getElementById("headLine");
-  headline.className = "iListHeadLine";
-  headline.innerHTML = "";
-  headline.innerText = myDrink.name;
-
-  let photoColumn = document.getElementById("imageColumn");
-  photoColumn.innerHTML = "";
-  let drinkImage = document.createElement("img");
-  drinkImage.className = "img-fluid";
-  drinkImage.src = myDrink.photo;
-  photoColumn.appendChild(drinkImage);
-
-  let instructionColumn = document.getElementById("instructions");
-  instructionColumn.innerHTML = "";
-  instructionColumn.innerText = myDrink.instructions;
-
-  let ingredientList = document.getElementById("iList");
-  ingredientList.innerHTML = "";
-
-  if (myDrink.ingredients != "No information found.") {
-    myDrink.ingredients.forEach((element) => {
-      let point = document.createElement("li");
-      point.innerText = element[1] + ": " + element[0];
-      ingredientList.appendChild(point);
-    });
-  } else {
-    ingredientList.innerHTML = "No information found.";
-  }
-}
-
-/*OVERLAY*/
-
-/* Open when someone clicks on the span element */
-function openNav(event) {
-  document.getElementById("myNav").style.width = "100%";
-  createOverlay(event.target.id);
-}
-
-/* Close when someone clicks on the "x" symbol inside the overlay */
-function closeNav() {
-  document.getElementById("myNav").style.width = "0%";
-}
-
-/*more build*/
