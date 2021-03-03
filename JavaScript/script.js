@@ -28,6 +28,7 @@ document.getElementById("clearsave").addEventListener("click", function () {
 
 //search event
 searchbar.addEventListener("keyup", function (event) {
+  // checks if keycode 13 was pressed ("Enter")
   if (event.keyCode === 13) {
     url =
       "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +
@@ -189,6 +190,7 @@ function clickedSave(event) {
     id: event.target.data.id,
     photo: event.target.data.photo,
   };
+  // checks if the item already exist in localstorage
   existing = false;
   for (let i = 0; i < localStorage.length; i++) {
     if (
@@ -201,6 +203,7 @@ function clickedSave(event) {
     }
   }
 
+  // if item does not already exist in localstorage, localstorage will save the drink, which needs to be stringified due to localStorage rules
   if (existing == false) {
     localStorage.setItem(
       `user_drinks${localStorage.length}`,
@@ -213,7 +216,9 @@ function clickedSave(event) {
 
 /*building my-page*/
 async function myPageFunction() {
+  // clears all cards
   cardContainer.innerHTML = "";
+  // loops through all items in localstorage, in case there would be a saved item with value null, it filters that away
   for (let i = 0; i <= localStorage.length; i++) {
     if (localStorage.getItem(`user_drinks${i}`) !== null) {
       let mainColumn = document.createElement("div");
@@ -264,35 +269,41 @@ async function myPageFunction() {
       delBtn.id =
         ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
       cBody.appendChild(delBtn);
-      delBtn.addEventListener("click", function (event) {
-        let n = 0;
-        storeSaved = [];
-
-        for (let i = 0; i < localStorage.length; i++) {
-          if (
-            JSON.parse(localStorage.getItem(`user_drinks${i}`)).id ===
-            event.target.id
-          ) {
-          } else {
-            storeSaved[n] = {
-              name: JSON.parse(localStorage.getItem(`user_drinks${i}`)).name,
-              id: JSON.parse(localStorage.getItem(`user_drinks${i}`)).id,
-              photo: JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo,
-            };
-            n++;
-          }
-        }
-
-        localStorage.clear();
-
-        for (let i = 0; i < storeSaved.length; i++) {
-          localStorage.setItem(
-            `user_drinks${i}`,
-            JSON.stringify(storeSaved[i])
-          );
-        }
-        myPageFunction();
-      });
+      delBtn.addEventListener("click", deleteFunction);
     }
+  }
+
+  // function for deleting drinks from localStorage
+function deleteFunction()
+{
+    let n = 0;
+    storeSaved = [];
+
+    /* loops through all saved items in localstorage and stores them all in a array "storeSaved", except the drink that was pressed delete on */
+    for (let i = 0; i < localStorage.length; i++) {
+      if (
+        JSON.parse(localStorage.getItem(`user_drinks${i}`)).id ===
+        event.target.id
+      ) {
+      } else {
+        storeSaved[n] = {
+          name: JSON.parse(localStorage.getItem(`user_drinks${i}`)).name,
+          id: JSON.parse(localStorage.getItem(`user_drinks${i}`)).id,
+          photo: JSON.parse(localStorage.getItem(`user_drinks${i}`)).photo,
+        };
+        n++;
+      }
+    }
+    /* clears all items in localStorage and then saves all the items that was stored in "storeSaved" before the clear was initiated */
+    localStorage.clear();
+
+    for (let i = 0; i < storeSaved.length; i++) {
+      localStorage.setItem(
+        `user_drinks${i}`,
+        JSON.stringify(storeSaved[i])
+      );
+    }
+    // refreshes mypage to visualise that an item was deleted
+    myPageFunction();
   }
 }
