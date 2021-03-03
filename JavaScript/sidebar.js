@@ -2,39 +2,46 @@ let sidebarToggle = document.getElementById("sidebar-toggle");
 let sidebar = document.getElementById("sidebar");
 let sidebarHidden = false;
 
+//Function for creating the sidebar dynamically
 async function createSideBar() {
-  /*Categories*/
+  //Fetches all of the categories available on the API
   let catUrl = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`;
-  let res = await fetch(catUrl);
-  let data = await res.json();
-  let cName = "";
-  let categoryUrl = "";
-  console.log(data);
+  try {
+    let res = await fetch(catUrl);
+    let data = await res.json();
+    let cName = "";
+    let categoryUrl = "";
 
-  for (let i = 0; i < data.drinks.length; i++) {
-    if (data.drinks[i].strCategory) {
-      /*<li><button type="button" name="" id="cat0" class="btn btn-block submenuBtn">Ordinary Drinks</button></li>*/
-      let li = document.createElement("li");
-      let btn = document.createElement("button");
-      btn.className = "btn btn-block submenuBtn";
-      btn.innerText = data.drinks[i].strCategory;
-      btn.setAttribute("id", `cat${i}`);
-      btn.addEventListener("click", function () {
-        cName = btn.innerText;
-        categoryUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cName}`;
-        console.log(categoryUrl);
-        fetchFunction(categoryUrl);
-      });
+    //Loops through all of the categories in the response, then creates a button
+    //with an eventlistener that in turn fetches drinks with correct category filter
+    for (let i = 0; i < data.drinks.length; i++) {
+      if (data.drinks[i].strCategory) {
+        let li = document.createElement("li");
+        let btn = document.createElement("button");
+        btn.className = "btn btn-block submenuBtn";
+        btn.innerText = data.drinks[i].strCategory;
+        btn.setAttribute("id", `cat${i}`);
+        btn.addEventListener("click", function () {
+          cName = btn.innerText;
+          categoryUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cName}`;
+          console.log(categoryUrl);
+          fetchFunction(categoryUrl);
+        });
 
-      li.appendChild(btn);
-      cList.appendChild(li);
+        li.appendChild(btn);
+        cList.appendChild(li);
+      }
     }
+  } catch (error) {
+    alert("Network error.");
   }
 
-  /*Ingredients*/
+  //Creates a predetermined array because the list of ingredients
+  //from the API was 100+ long, way to long for including in our sidebar.
   let ingredientsUrl = "";
   let ingredientsArray = ["Vodka", "Lime", "Whiskey", "Sugar", "Rum", "Gin"];
 
+  //Same as for dynamically creating the categories.
   for (let i = 0; i < ingredientsArray.length; i++) {
     let li = document.createElement("li");
     let btn = document.createElement("button");
@@ -54,7 +61,8 @@ async function createSideBar() {
 
   console.log(data);
 
-  /*Glasses*/
+  //Loops through all of the glasses in the response, then creates a button
+  //with an eventlistener that in turn fetches drinks with correct glass filter
   let glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list`;
   res = await fetch(glassUrl);
   data = await res.json();
@@ -64,7 +72,6 @@ async function createSideBar() {
 
   for (let i = 0; i < data.drinks.length; i++) {
     if (data.drinks[i].strGlass) {
-      /*<li><button type="button" name="" id="cat0" class="btn btn-block submenuBtn">Ordinary Drinks</button></li>*/
       let li = document.createElement("li");
       let btn = document.createElement("button");
       btn.className = "btn btn-block submenuBtn";
@@ -83,7 +90,8 @@ async function createSideBar() {
   }
 }
 
-//sidebar toggle event
+//Adding the eventlistener to the toggle button for toggling the sidebar
+//on and off.
 sidebarToggle.addEventListener("click", function () {
   if (sidebarHidden) {
     sidebar.style.visibility = "visible";
