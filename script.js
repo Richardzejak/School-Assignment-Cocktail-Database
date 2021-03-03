@@ -1,3 +1,5 @@
+"use strict";
+
 let sidebarToggle = document.getElementById("sidebar-toggle");
 let sidebar = document.getElementById("sidebar");
 let contentColumn = document.getElementById("contentColumn");
@@ -12,24 +14,6 @@ let saveButtons = [];
 //Searchbar
 let searchbar = document.getElementById("searchbar");
 
-//Categories
-let categories = [];
-for (let i = 0; i < 11; i++) {
-  categories.push(document.getElementById("cat" + i));
-}
-
-//ingredients
-let ingredients = [];
-for (let i = 0; i < 2; i++) {
-  ingredients.push(document.getElementById("ing" + i));
-}
-
-//glass
-let glass = [];
-for (let i = 0; i < 2; i++) {
-  glass.push(document.getElementById("gla" + i));
-}
-
 createSideBar();
 
 let storeSaved = [];
@@ -38,7 +22,7 @@ let existing = false;
 let url =
   "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
 
-fetchfunction(url);
+fetchFunction(url);
 
 //sidebar toggle event
 sidebarToggle.addEventListener("click", function () {
@@ -73,7 +57,7 @@ searchbar.addEventListener("keyup", function (event) {
     url =
       "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +
       searchbar.value;
-    fetchfunction(url);
+    fetchFunction(url);
   }
 });
 
@@ -98,7 +82,7 @@ async function createSideBar() {
         cName = btn.innerText;
         categoryUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cName}`;
         console.log(categoryUrl);
-        fetchfunction(categoryUrl);
+        fetchFunction(categoryUrl);
       });
 
       li.appendChild(btn);
@@ -117,10 +101,10 @@ async function createSideBar() {
     btn.innerText = ingredientsArray[i];
     btn.setAttribute("id", `ing${i}`);
     btn.addEventListener("click", function () {
-      iName = btn.innerText;
+      let iName = btn.innerText;
       ingredientsUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${iName}`;
       console.log(ingredientsUrl);
-      fetchfunction(ingredientsUrl);
+      fetchFunction(ingredientsUrl);
     });
 
     li.appendChild(btn);
@@ -149,7 +133,7 @@ async function createSideBar() {
         gName = btn.innerText;
         glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${gName}`;
         console.log(glassUrl);
-        fetchfunction(glassUrl);
+        fetchFunction(glassUrl);
       });
 
       li.appendChild(btn);
@@ -163,7 +147,7 @@ let randomButton = document
   .getElementById("randombutton")
   .addEventListener("click", function () {
     url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-    fetchfunction(url);
+    fetchFunction(url);
   });
 
 let myPage = document
@@ -171,7 +155,7 @@ let myPage = document
   .addEventListener("click", mypagefunction);
 
 /* Get data */
-async function fetchfunction(searchUrl) {
+async function fetchFunction(searchUrl) {
   let res = await fetch(searchUrl);
   console.log(res.status);
   let data = await res.json();
@@ -260,14 +244,9 @@ function collectIngredients(data) {
     }
   }
 
-  console.log(ingredientArray);
-  console.log(measureArray);
-
   var mergedArray = [];
   for (var i = 0; i < ingredientArray.length && i < measureArray.length; i++)
     mergedArray[i] = [measureArray[i], ingredientArray[i]];
-
-  console.log(mergedArray);
 
   return mergedArray;
 }
