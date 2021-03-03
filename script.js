@@ -206,22 +206,26 @@ async function fetchfunction(searchUrl) {
 /* Get data */
 async function fetchbyid(id) {
   let idUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  let res = await fetch(idUrl);
-  let data = await res.json();
-  console.log(data);
+  try {
+    let res = await fetch(idUrl);
+    let data = await res.json();
+    console.log(data);
 
-  let ingredientsArray = collectIngredients(data);
-  console.log(ingredientsArray);
+    let ingredientsArray = collectIngredients(data);
+    console.log(ingredientsArray);
 
-  let drink = {
-    name: data.drinks[0].strDrink,
-    photo: data.drinks[0].strDrinkThumb,
-    instructions: checkInstructions(data),
-    id: data.drinks[0].idDrink,
-    ingredients: checkIngredients(ingredientsArray),
-  };
+    let drink = {
+      name: data.drinks[0].strDrink,
+      photo: data.drinks[0].strDrinkThumb,
+      instructions: checkInstructions(data),
+      id: data.drinks[0].idDrink,
+      ingredients: checkIngredients(ingredientsArray),
+    };
 
-  return drink;
+    return drink;
+  } catch (error) {
+    alert("Network error.");
+  }
 }
 
 function checkInstructions(data) {
