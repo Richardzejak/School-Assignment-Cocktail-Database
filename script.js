@@ -173,25 +173,34 @@ let myPage = document
 /* Get data */
 async function fetchfunction(searchUrl) {
   let res = await fetch(searchUrl);
+  console.log(res.status);
   let data = await res.json();
 
   //create an array of the data objects as well as a new array for the drinks with only the properties we want
   let drinkArray = data.drinks;
   let filteredDrinks = [];
 
-  //create objects with the properties we want and then push them into new array
-  drinkArray.forEach((object) => {
-    let drink = {
-      name: object.strDrink,
-      photo: object.strDrinkThumb,
-      id: object.idDrink,
-    };
-    filteredDrinks.push(drink);
-  });
+  if (drinkArray != null) {
+    //create objects with the properties we want and then push them into new array
 
-  //build the cards with the array of drink objects
+    drinkArray.forEach((object) => {
+      let drink = {
+        name: object.strDrink,
+        photo: object.strDrinkThumb,
+        id: object.idDrink,
+      };
+      filteredDrinks.push(drink);
+    });
 
-  buildCard(filteredDrinks);
+    //build the cards with the array of drink objects
+
+    buildCard(filteredDrinks);
+  } else {
+    searchbar.value = "No result...";
+    setTimeout(function () {
+      searchbar.value = "";
+    }, 2000);
+  }
 }
 
 /* Get data */
@@ -285,9 +294,10 @@ function buildCard(drinkArray) {
     saveButton.data = drink;
     saveButton.id = drink.id;
     for (let i = 0; i < localStorage.length; i++) {
-        if (JSON.parse(localStorage.getItem(`user_drinks${i}`)).id === drink.id){
-          saveButton.className = "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
-        }
+      if (JSON.parse(localStorage.getItem(`user_drinks${i}`)).id === drink.id) {
+        saveButton.className =
+          "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
+      }
     }
     saveButton.addEventListener("click", clickedSave);
     cBody.appendChild(saveButton);
@@ -320,7 +330,8 @@ function clickedSave(event) {
       `user_drinks${localStorage.length}`,
       JSON.stringify(storedValues)
     );
-    event.target.className = "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
+    event.target.className =
+      "btn button btn-primary bi bi-heart-fill saveButton mt-2 ml-2 rounded";
   }
 }
 
