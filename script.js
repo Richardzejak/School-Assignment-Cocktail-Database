@@ -216,12 +216,28 @@ async function fetchbyid(id) {
   let drink = {
     name: data.drinks[0].strDrink,
     photo: data.drinks[0].strDrinkThumb,
-    instructions: data.drinks[0].strInstructions,
+    instructions: checkInstructions(data),
     id: data.drinks[0].idDrink,
-    ingredients: ingredientsArray,
+    ingredients: checkIngredients(ingredientsArray),
   };
 
   return drink;
+}
+
+function checkInstructions(data) {
+  if (data.drinks[0].strInstructions == "") {
+    return "No information found.";
+  } else {
+    return data.drinks[0].strInstructions;
+  }
+}
+
+function checkIngredients(ingredientsArray) {
+  if (ingredientsArray.length == 0) {
+    return "No information found.";
+  } else {
+    return ingredientsArray;
+  }
 }
 
 function collectIngredients(data) {
@@ -443,11 +459,16 @@ async function createOverlay(id) {
 
   let ingredientList = document.getElementById("iList");
   ingredientList.innerHTML = "";
-  myDrink.ingredients.forEach((element) => {
-    let point = document.createElement("li");
-    point.innerText = element[1] + ": " + element[0];
-    ingredientList.appendChild(point);
-  });
+
+  if (myDrink.ingredients != "No information found.") {
+    myDrink.ingredients.forEach((element) => {
+      let point = document.createElement("li");
+      point.innerText = element[1] + ": " + element[0];
+      ingredientList.appendChild(point);
+    });
+  } else {
+    ingredientList.innerHTML = "No information found.";
+  }
 }
 
 /*OVERLAY*/
