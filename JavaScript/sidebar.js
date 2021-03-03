@@ -24,7 +24,6 @@ async function createSideBar() {
         btn.addEventListener("click", function () {
           cName = btn.innerText;
           categoryUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${cName}`;
-          console.log(categoryUrl);
           fetchFunction(categoryUrl);
         });
 
@@ -51,7 +50,6 @@ async function createSideBar() {
     btn.addEventListener("click", function () {
       let iName = btn.innerText;
       ingredientsUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${iName}`;
-      console.log(ingredientsUrl);
       fetchFunction(ingredientsUrl);
     });
 
@@ -59,34 +57,34 @@ async function createSideBar() {
     iList.appendChild(li);
   }
 
-  console.log(data);
-
   //Loops through all of the glasses in the response, then creates a button
   //with an eventlistener that in turn fetches drinks with correct glass filter
   let glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list`;
-  res = await fetch(glassUrl);
-  data = await res.json();
-  let gName = "";
-  glassUrl = "";
-  console.log(data);
+  try {
+    res = await fetch(glassUrl);
+    data = await res.json();
+    let gName = "";
+    glassUrl = "";
 
-  for (let i = 0; i < data.drinks.length; i++) {
-    if (data.drinks[i].strGlass) {
-      let li = document.createElement("li");
-      let btn = document.createElement("button");
-      btn.className = "btn btn-block submenuBtn";
-      btn.innerText = data.drinks[i].strGlass;
-      btn.setAttribute("id", `gla${i}`);
-      btn.addEventListener("click", function () {
-        gName = btn.innerText;
-        glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${gName}`;
-        console.log(glassUrl);
-        fetchFunction(glassUrl);
-      });
+    for (let i = 0; i < data.drinks.length; i++) {
+      if (data.drinks[i].strGlass) {
+        let li = document.createElement("li");
+        let btn = document.createElement("button");
+        btn.className = "btn btn-block submenuBtn";
+        btn.innerText = data.drinks[i].strGlass;
+        btn.setAttribute("id", `gla${i}`);
+        btn.addEventListener("click", function () {
+          gName = btn.innerText;
+          glassUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${gName}`;
+          fetchFunction(glassUrl);
+        });
 
-      li.appendChild(btn);
-      gList.appendChild(li);
+        li.appendChild(btn);
+        gList.appendChild(li);
+      }
     }
+  } catch (error) {
+    alert("Network Error.");
   }
 }
 

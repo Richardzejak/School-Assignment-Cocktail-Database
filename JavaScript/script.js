@@ -51,34 +51,36 @@ let myPage = document
 
 /* function for fetching data */
 async function fetchFunction(searchUrl) {
-  let res = await fetch(searchUrl);
-  console.log(res.status);
-  let data = await res.json();
+  try {
+    let res = await fetch(searchUrl);
+    let data = await res.json();
 
-  //create an array of the data objects as well as a new array for the drinks with only the properties we want
-  let drinkArray = data.drinks;
-  let filteredDrinks = [];
+    //create an array of the data objects as well as a new array for the drinks with only the properties we want
+    let drinkArray = data.drinks;
+    let filteredDrinks = [];
 
-  if (drinkArray != null) {
-    //create objects with the properties we want and then push them into new array
+    if (drinkArray != null) {
+      //create objects with the properties we want and then push them into new array
+      drinkArray.forEach((object) => {
+        let drink = {
+          name: object.strDrink,
+          photo: object.strDrinkThumb,
+          id: object.idDrink,
+        };
+        filteredDrinks.push(drink);
+      });
 
-    drinkArray.forEach((object) => {
-      let drink = {
-        name: object.strDrink,
-        photo: object.strDrinkThumb,
-        id: object.idDrink,
-      };
-      filteredDrinks.push(drink);
-    });
-
-    //build the cards with the array of drink objects
-    //error handling for if there's no matching result from search
-    buildCard(filteredDrinks);
-  } else {
-    searchbar.value = "No result...";
-    setTimeout(function () {
-      searchbar.value = "";
-    }, 2000);
+      //build the cards with the array of drink objects
+      //error handling for if there's no matching result from search
+      buildCard(filteredDrinks);
+    } else {
+      searchbar.value = "No result...";
+      setTimeout(function () {
+        searchbar.value = "";
+      }, 2000);
+    }
+  } catch (error) {
+    alert("Network Error");
   }
 }
 

@@ -1,7 +1,5 @@
 async function createOverlay(id) {
-  let myDrink = await fetchbyid(id);
-  console.log(myDrink);
-  console.log(myDrink.name);
+  let myDrink = await fetchById(id);
 
   let headline = document.getElementById("headLine");
   headline.className = "iListHeadLine";
@@ -47,15 +45,13 @@ function closeNav() {
 }
 
 /*Function for fetching all the necessary data for the overlay*/
-async function fetchbyid(id) {
+async function fetchById(id) {
   let idUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   try {
     let res = await fetch(idUrl);
     let data = await res.json();
-    console.log(data);
 
     let ingredientsArray = collectIngredients(data);
-    console.log(ingredientsArray);
 
     let drink = {
       name: data.drinks[0].strDrink,

@@ -34,6 +34,7 @@
   <body class="">
     <div class="container-fluid">
       <div class="row">
+        <!--Start of the sidebar content-->
         <div class="col-1 fixed-top min-vh-100 sidebar" id="sidebar">
           <a href="index.html" style="text-decoration: none;"><h1 id="topHeadline">NB <i class="fas fa-cocktail my-auto"></i></h1></a>
           <button type="button" class="btn btn-block" data-target="#searchbar-list" data-toggle="collapse">Search</button>
@@ -55,23 +56,16 @@
           <button type="button" id="mypage" class="btn btn-block">My Favorites</button>
           <button type="button" id="clearsave" class="btn btn-block">Clear Favorites</button>
           <a id="github" href="https://github.com/Richardzejak/School-Assignment-Cocktail-Database" class="text-decoration-none text-center">Github Link</a>
-
-
-         
         </div>
+
         <div class="col" id="contentColumn">
           <div class="container-fluid ">
             <button class="btn btn-secondary" id="sidebar-toggle">
               <i class="bi bi-list"></i>
             </button>
             
-            <div class="row d-flex justify-content-center" id="cardContainer">
-              <!--Card-->            
-
-                
-                  
-
-              
+            <div class="row d-flex justify-content-center pb-5" id="cardContainer">
+              <!--This is where the cards will be created-->            
             </div>
 
             <!-- The overlay -->
@@ -94,11 +88,8 @@
                    <div class="col-md-6 col-xl-4 col-lg-4" id="secondColumn"><h1>Instructions</h1><hr class="my-4"><p id="instructions"></p></div>
                    <div class="col-md-6 col-xl-4 col-lg-4 pb-5" id="thirdColumn"><h1>Ingredients</h1><hr class="my-4"><ul id="iList"></ul></div>
                  </div>
-                
                 </div> 
-
             </div>
-
               <!-- Use any element to open/show the overlay navigation menu -->
           </div>
         </div>
