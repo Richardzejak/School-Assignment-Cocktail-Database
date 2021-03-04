@@ -210,7 +210,7 @@ async function myPageFunction() {
 
       let abtBtn = document.createElement("button");
       abtBtn.className =
-        "btn btn-primary aboutButton text-center mt-2 mr-auto rounded";
+        "btn btn-primary aboutButton text-center mt-2 mr-2 mr-auto rounded";
       abtBtn.innerText = "About";
       abtBtn.addEventListener("click", openNav);
       abtBtn.setAttribute(
@@ -221,7 +221,7 @@ async function myPageFunction() {
 
       let delBtn = document.createElement("button");
       delBtn.className =
-        "btn btn-primary deleteButton bi bi-trash-fill text-center mt-2  mr-auto rounded";
+        "btn btn-primary deleteButton bi bi-trash-fill text-center mt-2 ml-2 mr-auto rounded";
       delBtn.innerText = "";
       delBtn.id =
         ("id", JSON.parse(localStorage.getItem(`user_drinks${i}`)).id);
